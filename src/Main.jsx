@@ -1,23 +1,14 @@
-import Button from "react-bootstrap/Button";
 import { useUserAuth } from "./UserAuthContext";
+import Navbar from "./Navbar";
 export default function Main() {
-  const { user, logout } = useUserAuth();
-  const  handleLogout = async ()=> {
-    try {
-        await logout()
-    } catch (err) {
-      console.log(err.message);
-    }
-  }
+  const { user} = useUserAuth();
   return (
     <>
+      <Navbar />
       <div>Main</div>
       <div className="d-grid gap-2">
         <br />
         {user && user.email}
-        <Button onClick={handleLogout} variant="primary">
-          Log Out
-        </Button>
       </div>
     </>
   );

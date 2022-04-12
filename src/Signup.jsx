@@ -11,9 +11,11 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const { signUp } = useUserAuth();
   const navigate = useNavigate();
 
-  const { signUp } = useUserAuth();
+
+  //onClick,  we call signUp from the context, which contains createUserWithEmailAndPassword(auth, email, password), then navigate home, if something goes wrong, catch will set an error on screen
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -24,6 +26,8 @@ export default function Signup() {
       setError(err.message);
     }
   };
+
+
   return (
 
           <Stack gap={3} className="col-md-5 mx-auto" style={{border:"1px solid gray", padding:"5px", marginTop:"10px"}}>
