@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signInAnonymously,
   signOut,
   onAuthStateChanged,
   signInWithPopup,
@@ -15,6 +16,10 @@ const userAuthContext = createContext();
 //we create a context component that we will use to wrap our routes in App.js
 export function UserAuthContextProvider({ children }) {
   const [user, setUser] = useState("");
+
+  function signInAnon(){
+    return signInAnonymously(auth)
+  }
 
   //sign up function
   function signUp(email, password) {
@@ -46,7 +51,7 @@ export function UserAuthContextProvider({ children }) {
 
   return (
       //we pass the value that we want to use for context
-    <userAuthContext.Provider value={{ user, signUp, logIn, logout, googleSignIn }}>
+    <userAuthContext.Provider value={{ user, signUp, logIn, logout, googleSignIn, signInAnon }}>
       {children}
     </userAuthContext.Provider>
   );

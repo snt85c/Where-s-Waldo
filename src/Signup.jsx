@@ -30,7 +30,7 @@ export default function Signup() {
 
   return (
 
-          <Stack gap={3} className="col-md-5 mx-auto" style={{border:"1px solid gray", padding:"5px", marginTop:"10px"}}>
+          <Stack gap={3} className="col-md-5 mx-auto" style={{border:"1px solid gray", padding:"5px", marginTop:"50px"}}>
             <div className="text-xl font-bold antialiased">Sign Up</div>
             {error && <Alert variant="danger">{error}</Alert>}
             <Form onSubmit={handleSubmit}>

@@ -3,7 +3,8 @@ import { Stack, Button, Navbar, Image } from "react-bootstrap";
 
 export default function Nav() {
   const { user, logout } = useUserAuth();
-  console.log(user && user.photoURL);
+
+
   const handleLogout = async () => {
     try {
       await logout();
@@ -13,23 +14,22 @@ export default function Nav() {
   };
   return (
     <>
-      <Navbar bg="dark" className="mr-5">
-        <Navbar.Text style={{color:"white"}}>Navbar</Navbar.Text>
-        <div>Welcome {user && user.displayName}!</div>
+      <Navbar fixed="top" bg="dark" >
+        <Navbar.Text style={{color:"white", marginLeft:"2rem"}}>Where's Waldo?</Navbar.Text>
         <Navbar.Collapse className="justify-content-end ">
           <Stack direction="horizontal" gap={3}>
             {user && (
               <Image roundedCircle fluid
                 src={user.photoURL}
                 alt=""
-                style={{ height: "30px", width: "30px" }}
+                style={{ height: "30px", width: "30px", display:user.displayName?"flex":"none" }}
                 referrerPolicy="no-referrer"
               />
             )}
-            <Button size="sm" onClick={handleLogout} variant="secondary">
+            <Button size="sm" onClick={handleLogout} variant="secondary" style={{marginRight:"2rem"}}>
               Log Out
-            </Button>
-          </Stack>
+            </Button >
+          </Stack >
         </Navbar.Collapse>
       </Navbar>
     </>
