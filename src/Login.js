@@ -1,19 +1,21 @@
 import GoogleButton from "react-google-button";
+import GithubButton from "react-github-login-button";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useUserAuth } from "./UserAuthContext";
 import { Stack, Button, Alert, Form, Container } from "react-bootstrap";
 import background from "./dec0n4u-61a693f1-a519-4839-952d-4b2a9f365729.png";
+import skyBackground from "./11005249.jpg";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const[clientX, setClientX] = useState()
-  const[clientY, setClientY] = useState()
+  const [clientX, setClientX] = useState();
+  const [clientY, setClientY] = useState();
   const navigate = useNavigate();
-  const { logIn, googleSignIn, signInAnon } = useUserAuth();
+  const { logIn, googleSignIn, signInAnon, GitHubSignIn } = useUserAuth();
 
   const handleAnonSignIn = async (e) => {
     e.preventDefault();
@@ -35,6 +37,16 @@ export default function Login() {
     }
   };
 
+  const handleGitHubSignIn = async (e) => {
+    e.preventDefault();
+    try {
+      await GitHubSignIn();
+      navigate("/home");
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -46,9 +58,31 @@ export default function Login() {
     }
   };
 
-  
+  function AnonButton() {
+    return (
+      <Button
+        onClick={(e) => handleAnonSignIn(e)}
+        variant="secondary"
+        size="lg"
+      >
+        Log in Anonymously
+      </Button>
+    );
+  }
+
   return (
     <>
+      <div
+        style={{
+          backgroundImage: `url(${skyBackground})`,
+          position: "absolute",
+          zIndex: "-2",
+          minWidth: "100vw",
+          minHeight: "100vh",
+          backgroundPosition:"center",
+          backgroundPositionX: `${-clientX / 25}px`,
+        }}
+      ></div>
       <Stack
         gap={3}
         className="col-md-5 mx-auto"
@@ -61,16 +95,32 @@ export default function Login() {
           alignItems: "center",
           minWidth: "100vw",
           minHeight: "100vh",
+          // backgroundColor: "lightBlue",
           backgroundImage: `url(${background})`,
           backgroundRepeat: "no-repeat",
           backgroundPosition: "left",
-          backgroundPositionX: `${ -clientX /50}px`,
-          backgroundPositionY: `${ -clientY /50}px`,
+          backgroundPositionX: `${-clientX / 50}px`,
+          backgroundPositionY: `${-clientY / 50}px`,
         }}
-        onMouseMove={(e) => {setClientX(e.clientX); setClientY(e.clientY)}}
-        onTouchMove={(e) =>{setClientX(e.changedTouches[0].clientX); setClientY(e.changedTouches[0].clientY)}}
+        onMouseMove={(e) => {
+          setClientX(e.clientX);
+          setClientY(e.clientY);
+        }}
+        onTouchMove={(e) => {
+          setClientX(e.changedTouches[0].clientX);
+          setClientY(e.changedTouches[0].clientY);
+        }}
       >
-        <div style={{color:"black", fontWeight:"bolder", fontSize:"3rem"}}>Where's Waldo</div>
+        <div
+          style={{
+            color: "white",
+            fontWeight: "bolder",
+            fontSize: "5rem",
+            fontFamily: "AliandoRocky",
+          }}
+        >
+          Where's Waldo?
+        </div>
         {error && <Alert variant="danger">{error}</Alert>}
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -96,14 +146,6 @@ export default function Login() {
             >
               Login
             </Button>
-            <Button
-              onClick={(e) => handleAnonSignIn(e)}
-              variant="secondary"
-              size="lg"
-              className="btn-xxl"
-            >
-              Log in Anonymously
-            </Button>
             <div
               style={{
                 display: "flex",
@@ -112,17 +154,26 @@ export default function Login() {
               }}
             >
               <GoogleButton
+              type="light"
                 style={{ minWidth: "100%" }}
                 onClick={(e) => handleGoogleSignIn(e)}
               />
             </div>
+            <GithubButton
+            type="light"
+              style={{ minWidth: "100%" }}
+              onClick={(e) => handleGitHubSignIn(e)}
+            />
+            <AnonButton />
           </div>
         </Form>
         <div
           style={{
             display: "flex",
             justifyContent: "center",
-            alignItems: "center", color:"black", fontWeight:"bolder"
+            alignItems: "center",
+            color: "white",
+            fontWeight: "bolder",
           }}
         >
           dont have an account?

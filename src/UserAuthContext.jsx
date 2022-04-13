@@ -6,7 +6,9 @@ import {
   signOut,
   onAuthStateChanged,
   signInWithPopup,
-  GoogleAuthProvider
+  signInWithRedirect,
+  GoogleAuthProvider,
+  GithubAuthProvider
 } from "firebase/auth";
 import { auth } from "./Firebase";
 
@@ -42,6 +44,11 @@ export function UserAuthContextProvider({ children }) {
       return signInWithPopup(auth,googleAuthProvider)
   }
 
+  function GitHubSignIn(){
+    const githubAuthProvider = new GithubAuthProvider();
+    return signInWithPopup(auth, githubAuthProvider);
+  }
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -51,7 +58,7 @@ export function UserAuthContextProvider({ children }) {
 
   return (
       //we pass the value that we want to use for context
-    <userAuthContext.Provider value={{ user, signUp, logIn, logout, googleSignIn, signInAnon }}>
+    <userAuthContext.Provider value={{ user, signUp, logIn, logout, googleSignIn, signInAnon, GitHubSignIn }}>
       {children}
     </userAuthContext.Provider>
   );
