@@ -95,7 +95,6 @@ export default function Login() {
           alignItems: "center",
           minWidth: "100vw",
           minHeight: "100vh",
-          // backgroundColor: "lightBlue",
           backgroundImage: `url(${background})`,
           backgroundRepeat: "no-repeat",
           backgroundPosition: "left",
@@ -111,16 +110,19 @@ export default function Login() {
           setClientY(e.changedTouches[0].clientY);
         }}
       >
-        <div
+        <h1
           style={{
             color: "white",
             fontWeight: "bolder",
             fontSize: "5rem",
             fontFamily: "AliandoRocky",
+            textJustify:"center",
+            textAlign:"center"
+
           }}
         >
           Where's Waldo?
-        </div>
+        </h1>
         {error && <Alert variant="danger">{error}</Alert>}
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
