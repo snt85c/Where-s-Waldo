@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Where-s-Waldo/static/css/main.08885c06.css",
+    "main.js": "/Where-s-Waldo/static/js/main.afdd605c.js",
+    "static/media/s020gwdtsen31.png": "/Where-s-Waldo/static/media/s020gwdtsen31.8ba24665bc127696e98b.png",
+    "static/media/dec0n4u-61a693f1-a519-4839-952d-4b2a9f365729.png": "/Where-s-Waldo/static/media/dec0n4u-61a693f1-a519-4839-952d-4b2a9f365729.6ac839ef1f978f0c7495.png",
+    "index.html": "/Where-s-Waldo/index.html",
+    "main.08885c06.css.map": "/Where-s-Waldo/static/css/main.08885c06.css.map",
+    "main.afdd605c.js.map": "/Where-s-Waldo/static/js/main.afdd605c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.08885c06.css",
+    "static/js/main.afdd605c.js"
+  ]
+}
