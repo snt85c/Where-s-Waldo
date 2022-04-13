@@ -10,7 +10,8 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [event, setEvent] = useState("");
+  const[clientX, setClientX] = useState()
+  const[clientY, setClientY] = useState()
   const navigate = useNavigate();
   const { logIn, googleSignIn, signInAnon } = useUserAuth();
 
@@ -63,10 +64,11 @@ export default function Login() {
           backgroundImage: `url(${background})`,
           backgroundRepeat: "no-repeat",
           backgroundPosition: "left",
-          backgroundPositionX: `${event && -event.pageX /50}px`,
-          backgroundPositionY: `${event && -event.pageY /50}px`,
+          backgroundPositionX: `${ -clientX /50}px`,
+          backgroundPositionY: `${ -clientY /50}px`,
         }}
-        onMouseMove={(e) => setEvent(e)}
+        onMouseMove={(e) => {setClientX(e.clientX); setClientY(e.clientY)}}
+        onTouchMove={(e) =>{setClientX(e.changedTouches[0].clientX); setClientY(e.changedTouches[0].clientY)}}
       >
         <div style={{color:"black", fontWeight:"bolder", fontSize:"3rem"}}>Where's Waldo</div>
         {error && <Alert variant="danger">{error}</Alert>}

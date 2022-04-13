@@ -1,15 +1,15 @@
-import { useUserAuth } from "./UserAuthContext";
 import Navbar from "./Navbar";
 import { useState } from "react";
 import background from "./s020gwdtsen31.png";
 export default function Main() {
-  const [event, setEvent] = useState("");
-
+  const[clientX, setClientX] = useState()
+  const[clientY, setClientY] = useState()
   return (
     <>
       <Navbar />
       <div
-        onMouseMove={(e) => setEvent(e)}
+        onMouseMove={(e) => {setClientX(e.clientX); setClientY(e.clientY)}}
+        onTouchMove={(e) =>{setClientX(e.changedTouches[0].clientX); setClientY(e.changedTouches[0].clientY)}}
         style={{
           display: "flex",
           justifyContent: "center",
@@ -18,8 +18,8 @@ export default function Main() {
           minHeight: "100vh",
           backgroundImage: `url(${background})`,
           backgroundPosition: "center",
-          backgroundPositionX: `${event && -event.pageX * 1.2}px`,
-          backgroundPositionY: `${event && -event.pageY * 2}px`,
+          backgroundPositionX: `${ -clientX * 1.2}px`,
+          backgroundPositionY: `${ -clientY * 2}px`,
         }}
       ></div>
     </>
