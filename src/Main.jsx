@@ -41,6 +41,7 @@ export default function Main() {
           setClientY(e.clientY);
         }}
         onTouchMove={(e) => {
+          e.preventDefault()
           setClientX(e.changedTouches[0].clientX);
           setClientY(e.changedTouches[0].clientY);
         }}
