@@ -6,9 +6,8 @@ import {
   signOut,
   onAuthStateChanged,
   signInWithPopup,
-  signInWithRedirect,
   GoogleAuthProvider,
-  GithubAuthProvider
+  GithubAuthProvider,
 } from "firebase/auth";
 import { auth } from "./Firebase";
 
@@ -19,8 +18,8 @@ const userAuthContext = createContext();
 export function UserAuthContextProvider({ children }) {
   const [user, setUser] = useState("");
 
-  function signInAnon(){
-    return signInAnonymously(auth)
+  function signInAnon() {
+    return signInAnonymously(auth);
   }
 
   //sign up function
@@ -39,33 +38,42 @@ export function UserAuthContextProvider({ children }) {
   }
 
   //sign in with google
-  function googleSignIn(){
-      const googleAuthProvider = new GoogleAuthProvider()
-      return signInWithPopup(auth,googleAuthProvider)
+  function googleSignIn() {
+    const googleAuthProvider = new GoogleAuthProvider();
+    return signInWithPopup(auth, googleAuthProvider);
   }
 
-  function GitHubSignIn(){
+  function GitHubSignIn() {
     const githubAuthProvider = new GithubAuthProvider();
     return signInWithPopup(auth, githubAuthProvider);
   }
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
-    return () => unsubscribe();
+      const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+        setUser(currentUser);
+      });
+      return () => unsubscribe();
   }, []);
 
   return (
-      //we pass the value that we want to use for context
-    <userAuthContext.Provider value={{ user, signUp, logIn, logout, googleSignIn, signInAnon, GitHubSignIn }}>
+    //we pass the value that we want to use for context
+    <userAuthContext.Provider
+      value={{
+        user,
+        signUp,
+        logIn,
+        logout,
+        googleSignIn,
+        signInAnon,
+        GitHubSignIn,
+      }}
+    >
       {children}
     </userAuthContext.Provider>
   );
 }
 
-
-//we export the function that we will use to get the context when needed 
+//we export the function that we will use to get the context when needed
 export function useUserAuth() {
   return useContext(userAuthContext);
 }

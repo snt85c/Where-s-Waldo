@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useUserAuth } from "./UserAuthContext";
-import { Stack, Button, Alert, Form, Container } from "react-bootstrap";
+import { Stack, Button, Alert, Form } from "react-bootstrap";
 import background from "./dec0n4u-61a693f1-a519-4839-952d-4b2a9f365729.png";
 import skyBackground from "./11005249.jpg";
 
@@ -15,7 +15,14 @@ export default function Login() {
   const [clientX, setClientX] = useState();
   const [clientY, setClientY] = useState();
   const navigate = useNavigate();
-  const { logIn, googleSignIn, signInAnon, GitHubSignIn } = useUserAuth();
+  const { logIn, googleSignIn, signInAnon, GitHubSignIn, user } = useUserAuth();
+
+  useEffect(() => {
+    console.log(user)
+    if (user) {
+      navigate("/home");
+    }
+  }, []);
 
   const handleAnonSignIn = async (e) => {
     e.preventDefault();
@@ -32,8 +39,9 @@ export default function Login() {
     try {
       await googleSignIn();
       navigate("/home");
-    } catch (err) {
+    }catch (err) {
       setError(err.message);
+      console.log(err.message, "errmessage")
     }
   };
 
@@ -79,7 +87,7 @@ export default function Login() {
           zIndex: "-2",
           minWidth: "100vw",
           minHeight: "100vh",
-          backgroundPosition:"center",
+          backgroundPosition: "center",
           backgroundPositionX: `${-clientX / 25}px`,
         }}
       ></div>
@@ -106,6 +114,7 @@ export default function Login() {
           setClientY(e.clientY);
         }}
         onTouchMove={(e) => {
+          e.preventDefault();
           setClientX(e.changedTouches[0].clientX);
           setClientY(e.changedTouches[0].clientY);
         }}
@@ -116,9 +125,8 @@ export default function Login() {
             fontWeight: "bolder",
             fontSize: "5rem",
             fontFamily: "AliandoRocky",
-            textJustify:"center",
-            textAlign:"center"
-
+            textJustify: "center",
+            textAlign: "center",
           }}
         >
           Where's Waldo?
@@ -156,13 +164,13 @@ export default function Login() {
               }}
             >
               <GoogleButton
-              type="light"
+                type="light"
                 style={{ minWidth: "100%" }}
                 onClick={(e) => handleGoogleSignIn(e)}
               />
             </div>
             <GithubButton
-            type="light"
+              type="light"
               style={{ minWidth: "100%" }}
               onClick={(e) => handleGitHubSignIn(e)}
             />

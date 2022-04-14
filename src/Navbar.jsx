@@ -11,6 +11,7 @@ export default function Nav() {
       console.log(err.message);
     }
   };
+
   return (
     <>
       <Navbar fixed="top" bg="dark" >
