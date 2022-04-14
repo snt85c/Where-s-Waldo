@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/Where-s-Waldo/static/css/main.6424a702.css",
-    "main.js": "/Where-s-Waldo/static/js/main.17a98053.js",
+    "main.js": "/Where-s-Waldo/static/js/main.49aa9dd8.js",
     "static/media/s020gwdtsen31.png": "/Where-s-Waldo/static/media/s020gwdtsen31.8ba24665bc127696e98b.png",
     "static/media/dec0n4u-61a693f1-a519-4839-952d-4b2a9f365729.png": "/Where-s-Waldo/static/media/dec0n4u-61a693f1-a519-4839-952d-4b2a9f365729.6ac839ef1f978f0c7495.png",
     "static/media/11005249.jpg": "/Where-s-Waldo/static/media/11005249.b9d31d26a810a3861c97.jpg",
     "static/media/AliandoRocky.ttf": "/Where-s-Waldo/static/media/AliandoRocky.6ff3f9a0b8224559f55a.ttf",
     "index.html": "/Where-s-Waldo/index.html",
     "main.6424a702.css.map": "/Where-s-Waldo/static/css/main.6424a702.css.map",
-    "main.17a98053.js.map": "/Where-s-Waldo/static/js/main.17a98053.js.map"
+    "main.49aa9dd8.js.map": "/Where-s-Waldo/static/js/main.49aa9dd8.js.map"
   },
   "entrypoints": [
     "static/css/main.6424a702.css",
-    "static/js/main.17a98053.js"
+    "static/js/main.49aa9dd8.js"
   ]
 }
