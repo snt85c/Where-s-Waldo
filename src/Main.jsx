@@ -12,14 +12,16 @@ export default function Main() {
   useEffect(() => {
     if (window.innerWidth < 500) {
       setScreenSize(7);
-    } else if (window.innerWidth > 500 && window.innerWidth < 1000) {
+    } else if (window.innerWidth > 500 && window.innerWidth < 650) {
+      setScreenSize(3.5);
+    }else if(window.innerWidth > 650 && window.innerWidth < 1000){
       setScreenSize(2);
     } else if (window.innerWidth > 1000) {
       setScreenSize(1.2);
     }
     // console.log(screenSize)
     // console.log(window.innerWidth)
-  }, []);
+  }, [window.innerWidth]);
 
   return (
     <>
@@ -41,10 +43,16 @@ export default function Main() {
           setClientY(e.clientY);
         }}
         onTouchMove={(e) => {
-          e.preventDefault()
           setClientX(e.changedTouches[0].clientX);
           setClientY(e.changedTouches[0].clientY);
         }}
+        onTouchEnd={(e)=>{console.log(e.changedTouches[0].clientX, e.changedTouches[0].clientY)}}
+        onTouchStart={(e)=>{
+          console.log(clientX - e.changedTouches[0].clientX, clientY - e.changedTouches[0].clientY
+            )
+          setClientX(clientX - (clientX - e.changedTouches[0].clientX))
+          setClientY(clientY - (clientY - e.changedTouches[0].clientY))
+          }}
         style={{
           display: "flex",
           justifyContent: "center",
@@ -53,8 +61,10 @@ export default function Main() {
           minHeight: "100vh",
           backgroundImage: `url(${background})`,
           backgroundPosition: "center",
-          backgroundPositionX: `${-clientX * screenSize}px`, //*1.2
-          backgroundPositionY: `${-clientY * 2}px`, //*2
+          overflow:"hidden",
+          // backgroundPositionX: `${-clientX * screenSize}px`, //*1.2
+          // backgroundPositionY: `${-clientY * 2}px`, //*2
+          backgroundPosition: `${-clientX * screenSize}px ${-clientY * 2}px`
         }}
       ></div>
     </>
