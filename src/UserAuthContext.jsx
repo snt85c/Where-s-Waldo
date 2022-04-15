@@ -59,14 +59,17 @@ export function UserAuthContextProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    getRedirectResult(auth)
+    const auth = getAuth();
+
+    const unsubscribe = getRedirectResult(auth)
       .then((result) => {
-        console.log(result);
+        console.log(result.user);
         setUser(result.user);
       })
       .catch((error) => {
         console.log(error.code, error.message);
       });
+      return () => unsubscribe();
   }, []);
 
   return (
