@@ -1,13 +1,16 @@
 import Navbar from "./Navbar";
 import { useState, useEffect } from "react";
-import background from "./s020gwdtsen31.png";
+import cityBackground from "./s020gwdtsen31.png";
 import skyBackground from "./11005249.jpg";
 
 export default function Main() {
-  const [clientX, setClientX] = useState(0); //350
+  const [clientX, setClientX] = useState(350); //350
   const [clientY, setClientY] = useState(0);
-  const [screenSize, setScreenSize] = useState();
-  // console.log(clientX)
+ 
+
+  const [screenSize, setScreenSize] = useState(350);
+  console.log(clientX)
+  console.log(clientY)
 
   useEffect(() => {
     if (window.innerWidth < 500) {
@@ -47,9 +50,10 @@ export default function Main() {
         onTouchMove={(e) => {
           setClientX(e.changedTouches[0].screenX);
           setClientY(e.changedTouches[0].screenY);
-          // console.log(e.changedTouches[0].screenX, e.changedTouches[0].screenY)
+          console.log(e.changedTouches[0].screenX, e.changedTouches[0].screenY)
 
         }}
+        // onTouchStart={()=>{setClientX(0); setClientY(0)}}
         // onTouchEnd={(e)=>{console.log(e.changedTouches[0].clientX, e.changedTouches[0].clientY)}}
         // onTouchStart={(e)=>{
         //   setClientX(clientX - (clientX - e.changedTouches[0].screenX))
@@ -61,7 +65,7 @@ export default function Main() {
           alignItems: "center",
           minWidth: "100vw",
           minHeight: "100vh",
-          backgroundImage: `url(${background})`,
+          backgroundImage: `url(${cityBackground})`,
           backgroundPosition: "center",
           overflow:"-moz-hidden-unscrollable",
           backgroundPosition: `${-clientX * screenSize}px ${-clientY * 2}px`,

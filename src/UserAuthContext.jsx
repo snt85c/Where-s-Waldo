@@ -8,6 +8,9 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   GithubAuthProvider,
+  signInWithRedirect,
+  getRedirectResult,
+  getAuth,
 } from "firebase/auth";
 import { auth } from "./Firebase";
 
@@ -40,7 +43,7 @@ export function UserAuthContextProvider({ children }) {
   //sign in with google
   function googleSignIn() {
     const googleAuthProvider = new GoogleAuthProvider();
-    return signInWithPopup(auth, googleAuthProvider);
+    return signInWithRedirect(auth, googleAuthProvider);
   }
 
   function GitHubSignIn() {
@@ -49,10 +52,21 @@ export function UserAuthContextProvider({ children }) {
   }
 
   useEffect(() => {
-      const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-        setUser(currentUser);
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    getRedirectResult(auth)
+      .then((result) => {
+        console.log(result);
+        setUser(result.user);
+      })
+      .catch((error) => {
+        console.log(error.code, error.message);
       });
-      return () => unsubscribe();
   }, []);
 
   return (
