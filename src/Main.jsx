@@ -4,8 +4,8 @@ import background from "./s020gwdtsen31.png";
 import skyBackground from "./11005249.jpg";
 
 export default function Main() {
-  const [clientX, setClientX] = useState(); //350
-  const [clientY, setClientY] = useState();
+  const [clientX, setClientX] = useState(0); //350
+  const [clientY, setClientY] = useState(0);
   const [screenSize, setScreenSize] = useState();
   // console.log(clientX)
 
@@ -35,24 +35,26 @@ export default function Main() {
           minHeight: "100vh",
           backgroundPosition: "center",
           backgroundPositionX: `${-clientX / 10}px`,
+          overflow:"-moz-hidden-unscrollable"
         }}
       ></div>
-      <div
+      <img
+      // scr={background}
         onMouseMove={(e) => {
           setClientX(e.clientX);
           setClientY(e.clientY);
         }}
         onTouchMove={(e) => {
-          setClientX(e.changedTouches[0].clientX);
-          setClientY(e.changedTouches[0].clientY);
+          setClientX(e.changedTouches[0].screenX);
+          setClientY(e.changedTouches[0].screenY);
+          // console.log(e.changedTouches[0].screenX, e.changedTouches[0].screenY)
+
         }}
-        onTouchEnd={(e)=>{console.log(e.changedTouches[0].clientX, e.changedTouches[0].clientY)}}
-        onTouchStart={(e)=>{
-          console.log(clientX - e.changedTouches[0].clientX, clientY - e.changedTouches[0].clientY
-            )
-          setClientX(clientX - (clientX - e.changedTouches[0].clientX))
-          setClientY(clientY - (clientY - e.changedTouches[0].clientY))
-          }}
+        // onTouchEnd={(e)=>{console.log(e.changedTouches[0].clientX, e.changedTouches[0].clientY)}}
+        // onTouchStart={(e)=>{
+        //   setClientX(clientX - (clientX - e.changedTouches[0].screenX))
+        //   setClientY(clientY - (clientY - e.changedTouches[0].screenY))
+        //   }}
         style={{
           display: "flex",
           justifyContent: "center",
@@ -61,12 +63,14 @@ export default function Main() {
           minHeight: "100vh",
           backgroundImage: `url(${background})`,
           backgroundPosition: "center",
-          overflow:"hidden",
+          overflow:"-moz-hidden-unscrollable",
+          backgroundPosition: `${-clientX * screenSize}px ${-clientY * 2}px`,
+          // transform: `translate3d(0, 0, 0)`,
           // backgroundPositionX: `${-clientX * screenSize}px`, //*1.2
           // backgroundPositionY: `${-clientY * 2}px`, //*2
-          backgroundPosition: `${-clientX * screenSize}px ${-clientY * 2}px`
+          transform: `translate( ${clientX }px ,  ${clientY}px), 0`,
         }}
-      ></div>
+      />
     </>
   );
 }
