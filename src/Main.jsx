@@ -6,27 +6,27 @@ import skyBackground from "./11005249.jpg";
 export default function Main() {
   const [screenX, setScreenX] = useState(350); //350
   const [screenY, setScreenY] = useState(100);
-  const [touchStartX, setTouchStartX] = useState(0);
-  const [touchEndX, setTouchEndX] = useState(0);
-  const [touchStartY, setTouchStartY] = useState(0);
-  const [touchEndY, setTouchEndY] = useState(0);
-  const [screenSize, setScreenSize] = useState(350);
-
-  console.log(screenX, screenY)
+  const [clickX, setClickX] = useState(0);
+  const [clickY, setClickY] = useState(0);
+  const [screenSize, setScreenSize] = useState(0);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
-    if (window.innerWidth < 500) {
-      setScreenSize(7);
-    } else if (window.innerWidth > 500 && window.innerWidth < 650) {
-      setScreenSize(3.5);
+    if (window.innerWidth > 300 && window.innerWidth < 450) {
+      setScreenSize(6);
+    } else if (window.innerWidth > 450 && window.innerWidth < 650) {
+      setScreenSize(4.5);
     } else if (window.innerWidth > 650 && window.innerWidth < 1000) {
       setScreenSize(2);
     } else if (window.innerWidth > 1000) {
       setScreenSize(1.2);
     }
-    // console.log(screenSize)
-    // console.log(window.innerWidth)
+    console.log(
+      "current ScreenSize:",
+      screenSize,
+      " width:",
+      window.innerWidth
+    );
   }, [window.innerWidth]);
 
   return (
@@ -34,64 +34,59 @@ export default function Main() {
       <Navbar />
       <div
         style={{
-          backgroundImage: `url(${skyBackground})`,
+          display: "flex",
+          minWidth:"100%",
           position: "absolute",
-          zIndex: "-2",
-          minWidth: "100vw",
-          minHeight: "100vh",
-          backgroundPosition: "center",
-          backgroundPositionX: `${-screenX / 10}px`,
-          overflow: "hidden",
+          zIndex: "20",
+          top: "80px",
+          justifyContent: "center",
+          alignItems: "center",
+          color: "white",
         }}
-      ></div>
-      <img
-        scr={cityBackground}
+      >
+        ClickX{clickX}{" "}
+        ClickY{clickY}
+      </div>
+      <div
         onMouseMove={(e) => {
           setScreenX(e.clientX);
           setScreenY(e.clientY);
         }}
-        onTouchMove={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          // if(touchStartX - touchEndX > 50 || touchStartY - touchEndY > 50 ){
-            // console.log(touchStartX - touchEndX, touchStartY - touchEndY)
-            setScreenX(e.changedTouches[0].screenX);
-            setScreenY(e.changedTouches[0].screenY);
-          // }
-          // console.log(e.changedTouches[0].screenX, e.changedTouches[0].screenY)
-        }}
-        onTouchStart={(e) => {
-          setTouchStartX(e.changedTouches[0].screenX);
-            setTouchStartY(e.changedTouches[0].screenY);
-            // console.log(touchStartX, touchStartY, "START");
-        }}
-        onTouchEnd={(e) => {
-          setTouchEndX(e.changedTouches[0].screenX);
-            setTouchEndY(e.changedTouches[0].screenY);
-            // console.log(touchEndX, touchEndY, "END");
-        }}
-        style={{
-          // display: "flex",
-          // justifyContent: "center",
-          // alignItems: "center",
-          position:"absolute",
-          zIndex:"-1",
-          top:"10%",
-          left:"-50%",
-          minWidth: "300vw",
-          minHeight: "300vh",
-          background: `url(${cityBackground}) center center no-repeat`,
-          backgroundPosition: "center",
-          // backgroundPosition: `transform: translate( ${screenX}px ,${screenY}px)`,
-
-          // overflow: "-moz-hidden-unscrollable",
-          // backgroundPosition: `${-screenX * screenSize}px ${-screenY * 2}px`, 
-          // transform: `translate3d(0, 0, 0)`,
-          // backgroundPositionX: `${-clientX * screenSize}px`, //*1.2
-          // backgroundPositionY: `${-clientY * 2}px`, //*2
-          transform: `translate( ${-screenX * screenSize}px ,${-screenY * 2.6}px)`
-        }}
-      />
+        
+      >
+        <div
+          style={{
+            backgroundImage: `url(${skyBackground})`,
+            position: "absolute",
+            zIndex: "-2",
+            minWidth: "100vw",
+            minHeight: "100vh",
+            backgroundPosition: "center",
+            backgroundPositionX: `${-screenX / 10}px`,
+            overflow: "hidden",
+          }}
+        ></div>
+        <img
+          scr={cityBackground}
+          onClick={(e) => {
+            const { width, height } = e.target.getBoundingClientRect();
+            const { offsetX, offsetY } = e.nativeEvent;
+            setClickX(Math.round((offsetX / width) * 100));
+            setClickY(Math.round((offsetY / height) * 100));
+            // console.log(Math.round((offsetX / width) * 100) );
+            // console.log(offsetX, offsetY);
+          }}
+          style={{
+            position: "absolute",
+            minWidth: "100vw",
+            minHeight: "100vh",
+            background: `url(${cityBackground})`,
+            backgroundPosition: "center",
+            backgroundPosition: `${-screenX * screenSize}px ${-screenY * 2}px`,
+            transform: `translate3d(0, 0, 0)`,
+          }}
+        />
+      </div>
     </>
   );
 }

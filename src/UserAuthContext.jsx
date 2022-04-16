@@ -11,6 +11,7 @@ import {
   signInWithRedirect,
   getRedirectResult,
   getAuth,
+  PopupRedirectResolver
 } from "firebase/auth";
 import { auth } from "./Firebase";
 
