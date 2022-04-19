@@ -21,72 +21,82 @@ export default function Main() {
     } else if (window.innerWidth > 1000) {
       setScreenSize(1.2);
     }
-    console.log(
-      "current ScreenSize:",
-      screenSize,
-      " width:",
-      window.innerWidth
-    );
   }, [window.innerWidth]);
+
+  function TestingBar() {
+    return (
+      <div
+        style={{
+          display: "flex",
+          minWidth: "100%",
+          position: "absolute",
+          zIndex: "20",
+          top: "70px",
+          justifyContent: "center",
+          alignItems: "center",
+          color: "black",
+          backgroundColor: "white",
+        }}
+      >
+        ClickX
+        <div style={{ color: "red", fontWeight: "bolder" }}>{clickX} </div>
+        ClickY
+        <div style={{ color: "red", fontWeight: "bolder" }}>{clickY}</div>
+        ScreenSize
+        <div style={{ color: "red", fontWeight: "bolder" }}>{screenSize}</div>
+      </div>
+    );
+  }
+
+  function SkyBackground() {
+    return (
+      <div
+        style={{
+          backgroundImage: `url(${skyBackground})`,
+          position: "absolute",
+          zIndex: "-2",
+          minWidth: "100vw",
+          minHeight: "100vh",
+          // backgroundPosition: "center",
+          backgroundPositionX: `${-screenX / 4}px`,
+          overflow: "hidden",
+        }}
+      ></div>
+    );
+  }
 
   return (
     <>
       <Navbar />
-      <div
-        style={{
-          display: "flex",
-          minWidth:"100%",
-          position: "absolute",
-          zIndex: "20",
-          top: "80px",
-          justifyContent: "center",
-          alignItems: "center",
-          color: "white",
-        }}
-      >
-        ClickX{clickX}{" "}
-        ClickY{clickY}
-      </div>
-      <div
-        onMouseMove={(e) => {
-          setScreenX(e.clientX);
-          setScreenY(e.clientY);
-        }}
-        
-      >
-        <div
-          style={{
-            backgroundImage: `url(${skyBackground})`,
-            position: "absolute",
-            zIndex: "-2",
-            minWidth: "100vw",
-            minHeight: "100vh",
-            backgroundPosition: "center",
-            backgroundPositionX: `${-screenX / 10}px`,
-            overflow: "hidden",
-          }}
-        ></div>
+      <TestingBar />
+      <SkyBackground />
         <img
           scr={cityBackground}
+          onMouseMove={(e) => {
+            setScreenX(e.pageX);
+            setScreenY(e.pageY);
+          }}
+          onTouchMove={(e)=>{
+            setScreenX(e.changedTouches[0].pageX);
+            setScreenY(e.changedTouches[0].pageY);
+          }}
           onClick={(e) => {
-            const { width, height } = e.target.getBoundingClientRect();
-            const { offsetX, offsetY } = e.nativeEvent;
-            setClickX(Math.round((offsetX / width) * 100));
-            setClickY(Math.round((offsetY / height) * 100));
-            // console.log(Math.round((offsetX / width) * 100) );
-            // console.log(offsetX, offsetY);
+            setClickX(e.pageX);
+            setClickY(e.pageY);
           }}
           style={{
+             border:"1px solid red",
             position: "absolute",
             minWidth: "100vw",
             minHeight: "100vh",
             background: `url(${cityBackground})`,
-            backgroundPosition: "center",
-            backgroundPosition: `${-screenX * screenSize}px ${-screenY * 2}px`,
-            transform: `translate3d(0, 0, 0)`,
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: `${-screenX * 1.2}px ${-screenY * 2}px`,
+          // transform: `translate( ${-screenX}px,  ${-screenY}px)`,
+
+            // transform: `translate3d(0, 0, 0)`,
           }}
         />
-      </div>
     </>
   );
 }
