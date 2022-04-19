@@ -106,8 +106,8 @@ export default function Login() {
           backgroundImage: `url(${background})`,
           backgroundRepeat: "no-repeat",
           backgroundPosition: "left",
-          backgroundPositionX: `${-clientX / 50}px`,
-          backgroundPositionY: `${-clientY / 50}px`,
+          // backgroundPositionX: `${-clientX / 50}px`,
+          // backgroundPositionY: `${-clientY / 50}px`,
         }}
         onMouseMove={(e) => {
           setClientX(e.clientX);

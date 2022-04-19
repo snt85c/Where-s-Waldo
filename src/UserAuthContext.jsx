@@ -59,19 +59,19 @@ export function UserAuthContextProvider({ children }) {
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
-    const auth = getAuth();
+  // useEffect(() => {
+  //   const auth = getAuth();
 
-    const unsubscribe = getRedirectResult(auth)
-      .then((result) => {
-        console.log(result.user);
-        setUser(result.user);
-      })
-      .catch((error) => {
-        console.log(error.code, error.message);
-      });
-      return () => unsubscribe();
-  }, []);
+  //   const unsubscribe = getRedirectResult(auth)
+  //     .then((result) => {
+  //       console.log(result.user);
+  //       setUser(result.user);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error.code, error.message);
+  //     });
+  //     return () => unsubscribe();
+  // }, []);
 
   return (
     //we pass the value that we want to use for context
