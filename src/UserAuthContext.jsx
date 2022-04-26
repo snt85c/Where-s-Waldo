@@ -8,10 +8,6 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   GithubAuthProvider,
-  signInWithRedirect,
-  getRedirectResult,
-  getAuth,
-  PopupRedirectResolver
 } from "firebase/auth";
 import { auth } from "./Firebase";
 
@@ -44,7 +40,7 @@ export function UserAuthContextProvider({ children }) {
   //sign in with google
   function googleSignIn() {
     const googleAuthProvider = new GoogleAuthProvider();
-    return signInWithRedirect(auth, googleAuthProvider);
+    return signInWithPopup(auth, googleAuthProvider);
   }
 
   function GitHubSignIn() {
@@ -58,20 +54,6 @@ export function UserAuthContextProvider({ children }) {
     });
     return () => unsubscribe();
   }, []);
-
-  // useEffect(() => {
-  //   const auth = getAuth();
-
-  //   const unsubscribe = getRedirectResult(auth)
-  //     .then((result) => {
-  //       console.log(result.user);
-  //       setUser(result.user);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error.code, error.message);
-  //     });
-  //     return () => unsubscribe();
-  // }, []);
 
   return (
     //we pass the value that we want to use for context
