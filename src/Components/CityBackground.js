@@ -1,17 +1,19 @@
 import cityBackground from "../img/s020gwdtsen31.png";
 
-export default function CityBackground({setScreenX, setScreenY,screenX, screenY, setClickX, setClickY}) {
+export default function CityBackground({setScreenX, setScreenY,screenX, screenY, setClickX, setClickY, gameStart}) {
     return (
       <img
         scr={cityBackground}
         onMouseMove={(e) => {
-          setScreenX(e.pageX);
-          setScreenY(e.pageY);
+          if(gameStart){
+            setScreenX(e.pageX);
+            setScreenY(e.pageY);
+          }
         }}
-        onTouchMove={(e) => {
-          setScreenX(e.changedTouches[0].pageX);
-          setScreenY(e.changedTouches[0].pageY);
-        }}
+        // onTouchMove={(e) => {
+        //   setScreenX(e.changedTouches[0].pageX);
+        //   setScreenY(e.changedTouches[0].pageY);
+        // }}
         onClick={(e) => {
           setClickX(e.pageX);
           setClickY(e.pageY);
