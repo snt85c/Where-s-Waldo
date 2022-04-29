@@ -1,5 +1,6 @@
 import GoogleButton from "react-google-button";
 import GithubButton from "react-github-login-button";
+import "./App.css"
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -105,6 +106,7 @@ export default function Login() {
    
       >
         <h1
+        className="title-left"
           style={{
             color: "white",
             fontWeight: "bolder",

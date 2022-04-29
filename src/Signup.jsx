@@ -70,7 +70,7 @@ export default function Signup() {
         >
           Already have an account?
           <Link to="/">
-            <div style={{ color: "white" }}>Sign In</div>
+            <div style={{ color: "white", fontWeight:"bolder" }}>Sign In</div>
           </Link>
         </div>
       </Stack>

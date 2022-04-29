@@ -5,7 +5,8 @@ import Navbar from "./Navbar";
 import CityBackground from "./Components/CityBackground";
 import SkyBackground from "./Components/SkyBackground";
 import TestingBar from "./Components/TestingBar";
-import SearchOverlay from "./Components/SearchOverlay";
+import InstructionsOverlay from "./Components/InstructionsOverlay";
+import ScoresOverlay from "./Components/ScoresOverlay";
 
 export default function Main() {
   const [screenX, setScreenX] = useState(350); //350
@@ -15,6 +16,7 @@ export default function Main() {
   const [itemCat, setItemCat] = useState();
   const [itemPirate, setItemPirate] = useState();
   const [gameStart, setGameStart] = useState(false);
+  const [checkScores, setCheckScores] = useState(false)
 
   useEffect(() => {
     async function getData() {
@@ -102,7 +104,8 @@ export default function Main() {
         screenY={screenY}
         gameStart={gameStart}
       />
-      <SearchOverlay gameStart={gameStart} setGameStart={setGameStart}/>
+      <InstructionsOverlay gameStart={gameStart} setGameStart={setGameStart} setCheckScores={setCheckScores}/>
+      <ScoresOverlay checkScores={checkScores} setCheckScores={setCheckScores}/>
     </>
   );
 }

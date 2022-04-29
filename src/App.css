@@ -3,3 +3,40 @@
   font-family: AliandoRocky;
   src: url(AliandoRocky.ttf);
 }
+
+
+@import url("https://fonts.googleapis.com/css2?family=Prata&display=swap");
+
+
+@keyframes text-clip {
+  from {
+    clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+@keyframes inner-left {
+  0% {
+    transform: translateX(-70%);
+  }
+  90% {
+    transform:translateX(0);
+  }
+  100%{ 
+    transform: scale(1.6)
+  }  
+}
+
+.title-left {
+  display: inline-block;
+  animation: inner-left 1s 1s ease both;
+}
+
+
+.text-bottom {
+  animation: text-clip 1s 0s cubic-bezier(0.5, 0, 0.1, 1) both;
+}
+
+
