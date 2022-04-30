@@ -58,27 +58,27 @@ export default function Main() {
   //x1147 - 1163
   //y304 -331
 
-  // useEffect(() => {
-  //   if (itemCat && itemPirate) {
-  //     if (
-  //       clickX >= itemCat.xStart &&
-  //       clickX <= itemCat.xEnd &&
-  //       clickY >= itemCat.yStart &&
-  //       clickY <= itemCat.yEnd
-  //     ) {
-  //       console.log("cat is found");
-  //     } else if (
-  //       clickX >= itemPirate.xStart &&
-  //       clickX <= itemPirate.xEnd &&
-  //       clickY >= itemPirate.yStart &&
-  //       clickY <= itemPirate.yEnd
-  //     ) {
-  //       console.log("pirate is found");
-  //     } else {
-  //       console.log("keep trying");
-  //     }
-  //   }
-  // }, [clickX, clickY]);
+  useEffect(() => {
+    if (itemCat && itemPirate) {
+      if (
+        clickX >= itemCat.xStart &&
+        clickX <= itemCat.xEnd &&
+        clickY >= itemCat.yStart &&
+        clickY <= itemCat.yEnd
+      ) {
+        console.log("cat is found");
+      } else if (
+        clickX >= itemPirate.xStart &&
+        clickX <= itemPirate.xEnd &&
+        clickY >= itemPirate.yStart &&
+        clickY <= itemPirate.yEnd
+      ) {
+        console.log("pirate is found");
+      } else {
+        console.log("keep trying");
+      }
+    }
+  }, [clickX, clickY]);
 
 
 

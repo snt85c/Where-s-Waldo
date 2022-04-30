@@ -156,11 +156,11 @@ export default function Login() {
                 onClick={(e) => handleGoogleSignIn(e)}
               />
             </div>
-            {/* <GithubButton
+            <GithubButton
               type="light"
               style={{ minWidth: "100%" }}
               onClick={(e) => handleGitHubSignIn(e)}
-            /> */}
+            />
             <AnonButton />
           </div>
         </Form>
