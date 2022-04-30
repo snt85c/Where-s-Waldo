@@ -1,7 +1,7 @@
 import { useUserAuth } from "./UserAuthContext";
 import { Stack, Button, Navbar, Image } from "react-bootstrap";
 
-export default function Nav() {
+export default function Nav({ gameStart }) {
   const { user, logout } = useUserAuth();
 
   const handleLogout = async () => {
@@ -12,24 +12,57 @@ export default function Nav() {
     }
   };
 
+ì
+
+  function TargetReminder() {
+    return (
+      <>
+        <div style={{ display: gameStart ? "flex" : "none", color: "white" }}>
+          TARGET REMINDERS ì
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
-      <Navbar fixed="top" bg="dark" >
-        <Navbar.Text style={{color:"white", marginLeft:"2rem",fontSize:"1.5rem", fontFamily:"AliandoRocky"}}>Where's Waldo?</Navbar.Text>
+      <Navbar fixed="top" bg="dark">
+        <Navbar.Text
+          style={{
+            color: "white",
+            marginLeft: "2rem",
+            fontSize: "1.5rem",
+            fontFamily: "AliandoRocky",
+          }}
+        >
+          Where's Waldo?
+        </Navbar.Text>
         <Navbar.Collapse className="justify-content-end ">
           <Stack direction="horizontal" gap={3}>
+            <TargetReminder />
             {user && (
-              <Image roundedCircle fluid
+              <Image
+                roundedCircle
+                fluid
                 src={user.photoURL}
                 alt=""
-                style={{ height: "30px", width: "30px", display:user.photoURL?"flex":"none" }}
+                style={{
+                  height: "30px",
+                  width: "30px",
+                  display: user.photoURL ? "flex" : "none",
+                }}
                 referrerPolicy="no-referrer"
               />
             )}
-            <Button size="sm" onClick={handleLogout} variant="secondary" style={{marginRight:"2rem"}}>
+            <Button
+              size="sm"
+              onClick={handleLogout}
+              variant="secondary"
+              style={{ marginRight: "2rem" }}
+            >
               Log Out
-            </Button >
-          </Stack >
+            </Button>
+          </Stack>
         </Navbar.Collapse>
       </Navbar>
     </>

@@ -19,7 +19,17 @@ export default function ScoresOverlay({ setCheckScores, checkScores }) {
     getData();
   }, []);
 
-scores.forEach((score)=>console.log(score.name + "=>" + score.time))
+  function ShowScores() {
+    const result = scores.map((score) => (
+      <div style={{display:"flex",alignItems:"center", justifyContent:"space-evenly", margin:"5px"}}>
+        <img style={{borderRadius:"50%"}}width="50px" height="50px " src={score.image} />
+        <div>{score.name} </div>
+        <div>{score.time} {" "}seconds</div>
+      </div>
+    ));
+
+    return <>{result}</>;
+  }
 
   return (
     <>
@@ -42,6 +52,7 @@ scores.forEach((score)=>console.log(score.name + "=>" + score.time))
           textAlign: "center",
         }}
       >
+        <ShowScores />
         <Button variant="light" onClick={() => setCheckScores(false)}>
           Close Top Scores
         </Button>

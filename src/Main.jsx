@@ -84,7 +84,7 @@ export default function Main() {
 
   return (
     <>
-      <Navbar />
+      <Navbar gameStart={gameStart}/>
       {/* <TestingBar
         clickX={clickX}
         clickY={clickY}
