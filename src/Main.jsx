@@ -10,8 +10,8 @@ import ScoresOverlay from "./Components/ScoresOverlay";
 import SearchOverlay from "./Components/SearchOverlay";
 
 export default function Main() {
-  const [screenX, setScreenX] = useState(); //350
-  const [screenY, setScreenY] = useState(); //100
+  const [screenX, setScreenX] = useState(350);
+  const [screenY, setScreenY] = useState(400);
   const [clickX, setClickX] = useState(0);
   const [clickY, setClickY] = useState(0);
   const [itemCat, setItemCat] = useState();
@@ -37,52 +37,11 @@ export default function Main() {
     getData();
   }, []);
 
-  // useEffect(() => {
-  //   document.body.style.overflow = "hidden";
-  //   if (window.innerWidth > 300 && window.innerWidth < 450) {
-  //     setScreenSize(6);
-  //   } else if (window.innerWidth > 450 && window.innerWidth < 650) {
-  //     setScreenSize(4.5);
-  //   } else if (window.innerWidth > 650 && window.innerWidth < 1000) {
-  //     setScreenSize(2);
-  //   } else if (window.innerWidth > 1000) {
-  //     setScreenSize(1.2);
-  //   }
-  // }, [window.innerWidth]);
-
-  //cat coordinates
-  //x658 - 676
-  //y280 -300
-
-  //pirateKing coordinates
-  //x1147 - 1163
-  //y304 -331
-
-  useEffect(() => {
-    if (itemCat && itemPirate) {
-      if (
-        clickX >= itemCat.xStart &&
-        clickX <= itemCat.xEnd &&
-        clickY >= itemCat.yStart &&
-        clickY <= itemCat.yEnd
-      ) {
-        console.log("cat is found");
-      } else if (
-        clickX >= itemPirate.xStart &&
-        clickX <= itemPirate.xEnd &&
-        clickY >= itemPirate.yStart &&
-        clickY <= itemPirate.yEnd
-      ) {
-        console.log("pirate is found");
-      } else {
-        console.log("keep trying");
-      }
-    }
-  }, [clickX, clickY]);
-
   return (
     <>
-      <Navbar gameStart={gameStart} />
+      <Navbar
+        gameStart={gameStart}
+      />
       {/* <TestingBar
         clickX={clickX}
         clickY={clickY}
@@ -106,6 +65,8 @@ export default function Main() {
         clickY={clickY}
         screenX={screenX}
         screenY={screenY}
+        itemCat={itemCat}
+        itemPirate={itemPirate}
       />
       <InstructionsOverlay
         gameStart={gameStart}

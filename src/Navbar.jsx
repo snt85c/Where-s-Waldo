@@ -2,7 +2,7 @@ import { useUserAuth } from "./UserAuthContext";
 import { Stack, Button, Navbar, Image } from "react-bootstrap";
 import { useState, useEffect } from "react";
 
-export default function Nav({ gameStart }) {
+export default function Nav({ gameStart}) {
   const { user, logout } = useUserAuth();
   const [time, setTime] = useState(0);
 
@@ -15,8 +15,6 @@ export default function Nav({ gameStart }) {
   };
 
   function Instructions() {
-
-    
     return (
       <div style={{ display: gameStart ? "flex" : "none", color: "white" }}>
         INSTRUCTIONS

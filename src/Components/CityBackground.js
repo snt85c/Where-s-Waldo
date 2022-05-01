@@ -20,7 +20,7 @@ export default function CityBackground({setScreenX, setScreenY,screenX, screenY,
           minHeight: "100vh",
           background: `url(${cityBackground})`,
           backgroundRepeat: "no-repeat",
-          backgroundPosition: `${-screenX }px ${-screenY * 1.5 }px`, //*1.2 *2
+          backgroundPosition: `${-screenX *1.2}px ${-screenY * 2 }px`, //*1.5
         }}
         alt="#"
       />

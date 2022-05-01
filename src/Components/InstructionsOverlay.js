@@ -3,7 +3,12 @@ import pirate from "../img/pirate.png";
 import "../App.css";
 
 import { Button } from "react-bootstrap";
-export default function InstructionsOverlay({ gameStart, setGameStart, setCheckScores }) {
+export default function InstructionsOverlay({
+  gameStart,
+  setGameStart,
+  setCheckScores,
+}) {
+
   return (
     <>
       <div
@@ -65,8 +70,10 @@ export default function InstructionsOverlay({ gameStart, setGameStart, setCheckS
         <h6>try to beat the score by being faster than other players</h6>
 
         <div className="d-grid gap-2 mx-2">
-          <Button variant="light" onClick={()=>setCheckScores(true)}>Check Top Scores</Button>
-          <Button variant="warning" onClick={() => setGameStart(true)}>
+          <Button variant="light" onClick={() => setCheckScores(true)}>
+            Check Top Scores
+          </Button>
+          <Button variant="warning" onClick={() => {setGameStart(true)} }>
             Start
           </Button>
         </div>
