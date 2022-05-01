@@ -10,10 +10,6 @@ export default function CityBackground({setScreenX, setScreenY,screenX, screenY,
             setScreenY(e.pageY);
           }
         }}
-        // onTouchMove={(e) => {
-        //   setScreenX(e.changedTouches[0].pageX);
-        //   setScreenY(e.changedTouches[0].pageY);
-        // }}
         onClick={(e) => {
           setClickX(e.pageX);
           setClickY(e.pageY);
@@ -24,7 +20,7 @@ export default function CityBackground({setScreenX, setScreenY,screenX, screenY,
           minHeight: "100vh",
           background: `url(${cityBackground})`,
           backgroundRepeat: "no-repeat",
-          backgroundPosition: `${-screenX * 1.2}px ${-screenY * 2}px`,
+          backgroundPosition: `${-screenX }px ${-screenY * 1.5 }px`, //*1.2 *2
         }}
         alt="#"
       />

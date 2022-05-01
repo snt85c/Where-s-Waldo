@@ -7,16 +7,17 @@ import SkyBackground from "./Components/SkyBackground";
 import TestingBar from "./Components/TestingBar";
 import InstructionsOverlay from "./Components/InstructionsOverlay";
 import ScoresOverlay from "./Components/ScoresOverlay";
+import SearchOverlay from "./Components/SearchOverlay";
 
 export default function Main() {
-  const [screenX, setScreenX] = useState(350); //350
-  const [screenY, setScreenY] = useState(100);
+  const [screenX, setScreenX] = useState(); //350
+  const [screenY, setScreenY] = useState(); //100
   const [clickX, setClickX] = useState(0);
   const [clickY, setClickY] = useState(0);
   const [itemCat, setItemCat] = useState();
   const [itemPirate, setItemPirate] = useState();
   const [gameStart, setGameStart] = useState(false);
-  const [checkScores, setCheckScores] = useState(false)
+  const [checkScores, setCheckScores] = useState(false);
 
   useEffect(() => {
     async function getData() {
@@ -49,7 +50,6 @@ export default function Main() {
   //   }
   // }, [window.innerWidth]);
 
-  
   //cat coordinates
   //x658 - 676
   //y280 -300
@@ -80,11 +80,9 @@ export default function Main() {
     }
   }, [clickX, clickY]);
 
-
-
   return (
     <>
-      <Navbar gameStart={gameStart}/>
+      <Navbar gameStart={gameStart} />
       {/* <TestingBar
         clickX={clickX}
         clickY={clickY}
@@ -92,9 +90,7 @@ export default function Main() {
         screenX={screenX}
         screenY={screenY}
       /> */}
-      <SkyBackground
-        screenX={screenX / 20}
-      />
+      <SkyBackground screenX={screenX / 20} />
       <CityBackground
         setScreenX={setScreenX}
         setScreenY={setScreenY}
@@ -104,8 +100,22 @@ export default function Main() {
         screenY={screenY}
         gameStart={gameStart}
       />
-      <InstructionsOverlay gameStart={gameStart} setGameStart={setGameStart} setCheckScores={setCheckScores}/>
-      <ScoresOverlay checkScores={checkScores} setCheckScores={setCheckScores}/>
+      <SearchOverlay
+        gameStart={gameStart}
+        clickX={clickX}
+        clickY={clickY}
+        screenX={screenX}
+        screenY={screenY}
+      />
+      <InstructionsOverlay
+        gameStart={gameStart}
+        setGameStart={setGameStart}
+        setCheckScores={setCheckScores}
+      />
+      <ScoresOverlay
+        checkScores={checkScores}
+        setCheckScores={setCheckScores}
+      />
     </>
   );
 }

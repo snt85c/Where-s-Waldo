@@ -1,6 +1,6 @@
 import GoogleButton from "react-google-button";
 import GithubButton from "react-github-login-button";
-import "./App.css"
+import "./App.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -20,7 +20,7 @@ export default function Login() {
   const { logIn, googleSignIn, signInAnon, GitHubSignIn, user } = useUserAuth();
 
   useEffect(() => {
-    console.log(user)
+    console.log(user);
     if (user) {
       navigate("/home");
     }
@@ -41,9 +41,9 @@ export default function Login() {
     try {
       await googleSignIn();
       navigate("/home");
-    }catch (err) {
+    } catch (err) {
       setError(err.message);
-      console.log(err.message, "errmessage")
+      console.log(err.message, "errmessage");
     }
   };
 
@@ -82,7 +82,7 @@ export default function Login() {
 
   return (
     <>
-      <SkyBackground screenX={clientX / 20 } screenY={clientY / 20}/>
+      <SkyBackground screenX={clientX / 20} screenY={clientY / 20} />
       <Stack
         gap={3}
         className="col-md-5 mx-auto"
@@ -103,10 +103,9 @@ export default function Login() {
           setClientX(e.clientX);
           setClientY(e.clientY);
         }}
-   
       >
         <h1
-        className="title-left"
+          className="title-left"
           style={{
             color: "white",
             fontWeight: "bolder",

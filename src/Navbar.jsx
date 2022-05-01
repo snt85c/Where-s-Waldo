@@ -15,7 +15,13 @@ export default function Nav({ gameStart }) {
   };
 
   function Instructions() {
-    return <div style={{display:gameStart?"flex":"none" , color: "white"}}>INSTRUCTIONS</div>;
+
+    
+    return (
+      <div style={{ display: gameStart ? "flex" : "none", color: "white" }}>
+        INSTRUCTIONS
+      </div>
+    );
   }
 
   function Timer() {
