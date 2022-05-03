@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Alert, Fade} from "react-bootstrap";
+import { Alert } from "react-bootstrap";
 
 export default function SearchOverlay({
   gameStart,
@@ -12,6 +12,14 @@ export default function SearchOverlay({
 }) {
   const [posX, setPosX] = useState();
   const [posY, setPosY] = useState();
+  const [alertOverlay, setAlertOverlay] = useState({
+    show: false,
+    name: "",
+    variant: "",
+  });
+  useEffect(() => {
+    console.log(alertOverlay);
+  }, [alertOverlay]);
 
   useEffect(() => {
     setPosX(clickX + (clickX - screenX) * 1.2 - 50);
@@ -24,7 +32,7 @@ export default function SearchOverlay({
     setPosY(clickY - 50);
   }, [clickX, clickY]);
 
-  function findCat() {
+  function FindCat() {
     if (
       clickX >= itemCat.xStart &&
       clickX <= itemCat.xEnd &&
@@ -32,12 +40,21 @@ export default function SearchOverlay({
       clickY <= itemCat.yEnd
     ) {
       console.log("cat is found");
+      setAlertOverlay({ show: true, name: "cat is found", variant: "success" });
+          setTimeout(()=>setAlertOverlay({ ...alertOverlay, show: false }), 2000)
+
     } else {
-      console.log("not a cat");
+      setAlertOverlay({
+        show: true,
+        name: "incorrect: not the cat",
+        variant: "warning",
+      });
+      setTimeout(()=>setAlertOverlay({ ...alertOverlay, show: false }), 2000)
+
     }
   }
 
-  function findPirate() {
+  function FindPirate() {
     if (
       clickX >= itemPirate.xStart &&
       clickX <= itemPirate.xEnd &&
@@ -45,25 +62,54 @@ export default function SearchOverlay({
       clickY <= itemPirate.yEnd
     ) {
       console.log("pirate is found");
-      
+      setAlertOverlay({
+        show: true,
+        name: "pirate is found",
+        variant: "success",
+      });
+      setTimeout(()=>setAlertOverlay({ ...alertOverlay, show: false }), 2000)
+
     } else {
       console.log("not the pirate");
+      setAlertOverlay({
+        show: true,
+        name: "incorrect: not the pirate",
+        variant: "warning",
+      });
+      setTimeout(()=>setAlertOverlay({ ...alertOverlay, show: false }), 2000)
+
     }
   }
-  
+
   return (
     <>
-
+      <Alert
+        className={` ${!alertOverlay.show ? "fadeOut" : ""}`}
+        variant={alertOverlay.variant}
+        style={{
+          position: "absolute",
+          top: "100px",
+          left: "50vw",
+          transform: ` translate(-50%, 0%)`,
+          zIndex: "4",
+        }}
+        // onTransitionEnd={() =>
+        //   ()=>setTimeout(setAlertOverlay({ ...alertOverlay, show: false }), 2000)
+        // }
+      >
+        {alertOverlay.name}
+      </Alert>
       <div
-      style={{
-        position: "fixed",
-        zIndex: gameStart ? "3" : "-2",
-        width: "200px",
-        height: "100px",
-        top: posY ,
-        left: posX,
-        //extra overlay between the target (round) and the selection box (rectangle), to avoid movement triggered when moving the mouse between the empty spaces of the two elements
-      }}>
+        style={{
+          position: "fixed",
+          zIndex: gameStart ? "3" : "-2",
+          width: "200px",
+          height: "100px",
+          top: posY,
+          left: posX,
+          //extra overlay between the target (round) and the selection box (rectangle), to avoid movement triggered when moving the mouse between the empty spaces of the two elements
+        }}
+      >
         <div
           style={{
             position: "fixed",
@@ -96,7 +142,7 @@ export default function SearchOverlay({
             zIndex: gameStart ? "3" : "-2",
             width: "100px",
             height: "100px",
-            padding:"10px",
+            padding: "10px",
             opacity: "80%",
             borderRadius: "5px",
             backgroundColor: "#212529",
@@ -104,15 +150,15 @@ export default function SearchOverlay({
             top: posY,
             left: posX + 100,
             color: "white",
-            fontWeight:"bolder",
-            textAlign:"center"
+            fontWeight: "bolder",
+            textAlign: "center",
           }}
           //rectangle overlay
         >
-          <div onClick={findCat} style={{ cursor: "pointer" }}>
+          <div onClick={FindCat} style={{ cursor: "pointer" }}>
             Cat
           </div>
-          <div onClick={findPirate} style={{ cursor: "pointer" }}>
+          <div onClick={FindPirate} style={{ cursor: "pointer" }}>
             Pirate
           </div>
         </div>

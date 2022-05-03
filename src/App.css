@@ -40,3 +40,31 @@ body{
 .text-bottom {
   animation: text-clip 1s 0s cubic-bezier(0.5, 0, 0.1, 1) both;
 }
+
+.fadeOut {
+  opacity: 0;
+  transition: all 250ms linear 2s; 
+}
+
+.fadeIn{
+  opacity: 1;
+  transition: all 5s linear 5s; 
+}
+
+#fadeOUT{
+
+   animation:signup-response 0.5s 1;
+  -webkit-animation:signup-response 0.5s 1;
+  animation-fill-mode: forwards;
+
+  animation-delay:2s;
+  -webkit-animation-delay:1s; /* Safari and Chrome */
+  -webkit-animation-fill-mode: forwards;
+
+} 
+
+@keyframes signup-response{
+  from {opacity :1;}
+  to {opacity :0;}
+}
+
