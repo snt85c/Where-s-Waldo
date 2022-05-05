@@ -10,10 +10,12 @@ import ScoresOverlay from "./Components/ScoresOverlay";
 import SearchOverlay from "./Components/SearchOverlay";
 
 export default function Main() {
-  const [screenX, setScreenX] = useState(350);
-  const [screenY, setScreenY] = useState(400);
-  const [clickX, setClickX] = useState(0);
-  const [clickY, setClickY] = useState(0);
+  const [coordinates, setCoordinates] = useState({
+    screenX: 350,
+    screenY: 400,
+    clickX: 0,
+    clickY: 0,
+  });
   const [itemCat, setItemCat] = useState();
   const [itemPirate, setItemPirate] = useState();
   const [gameStart, setGameStart] = useState(false);
@@ -24,7 +26,6 @@ export default function Main() {
       try {
         const querySnapshot = await getDocs(collection(db, "items"));
         querySnapshot.forEach((doc) => {
-          console.log(doc.id, " => ", doc.data());
           if (doc.id === "cat") {
             setItemCat(doc.data());
           }
@@ -39,32 +40,22 @@ export default function Main() {
 
   return (
     <>
-      <Navbar
-        gameStart={gameStart}
-      />
+      <Navbar gameStart={gameStart} />
       {/* <TestingBar
-        clickX={clickX}
-        clickY={clickY}
-        screenSize={screenSize}
-        screenX={screenX}
-        screenY={screenY}
+        clickX={coordinates.clickX}
+        clickY={coordinates.clickY}
+        screenX={coordinates.screenX}
+        screenY={coordinates.screenY}
       /> */}
-      <SkyBackground screenX={screenX / 20} />
+      <SkyBackground X={coordinates.screenX / 20} />
       <CityBackground
-        setScreenX={setScreenX}
-        setScreenY={setScreenY}
-        setClickX={setClickX}
-        setClickY={setClickY}
-        screenX={screenX}
-        screenY={screenY}
+        setCoordinates={setCoordinates}
+        coordinates={coordinates}
         gameStart={gameStart}
       />
       <SearchOverlay
+        coordinates={coordinates}
         gameStart={gameStart}
-        clickX={clickX}
-        clickY={clickY}
-        screenX={screenX}
-        screenY={screenY}
         itemCat={itemCat}
         itemPirate={itemPirate}
       />

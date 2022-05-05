@@ -3,87 +3,94 @@ import { Alert } from "react-bootstrap";
 
 export default function SearchOverlay({
   gameStart,
-  clickX,
-  clickY,
-  screenX,
-  screenY,
+  coordinates,
   itemCat,
   itemPirate,
 }) {
-  const [posX, setPosX] = useState();
-  const [posY, setPosY] = useState();
+  //posX and posX is the calculated place where the overlay for the search sould be, depending on mouseclick and mousemove, this way they stay locked on the same screen area
+  const [position, setPosition] = useState({ x: 0, y: 0 });
   const [alertOverlay, setAlertOverlay] = useState({
     show: false,
     name: "",
     variant: "",
   });
-  useEffect(() => {
-    console.log(alertOverlay);
-  }, [alertOverlay]);
 
   useEffect(() => {
-    setPosX(clickX + (clickX - screenX) * 1.2 - 50);
-    setPosY(clickY + (clickY - screenY) * 2 - 50);
-    //set the position based on: the clicked coordinates plus the difference between the clicked coordinates and the current coordinates from onMouseMove, multiplied by the modifier, minus 50 (to have it centered on the target)
-  }, [screenX, screenY]);
+    //on mouseMove, set the position based on: the clicked coordinates plus the difference between the clicked coordinates and the current coordinates from onMouseMove, multiplied by the modifier, minus 50 (to have it centered on the target)
+    setPosition({
+      x:
+        coordinates.clickX +
+        (coordinates.clickX - coordinates.screenX) * 1.2 -
+        50,
+      y:
+        coordinates.clickY +
+        (coordinates.clickY - coordinates.screenY) * 2 -
+        50,
+    });
+  }, [coordinates.screenX, coordinates.screenY]);
 
   useEffect(() => {
-    setPosX(clickX - 50);
-    setPosY(clickY - 50);
-  }, [clickX, clickY]);
+    //on initial click, set coordinates as such, so that the overlay is centered on the click
+    setPosition({
+      x: coordinates.clickX - 50,
+      y: coordinates.clickY - 50,
+    });
+  }, [coordinates.clickX, coordinates.clickY]);
 
   function FindCat() {
     if (
-      clickX >= itemCat.xStart &&
-      clickX <= itemCat.xEnd &&
-      clickY >= itemCat.yStart &&
-      clickY <= itemCat.yEnd
+      coordinates.clickX >= itemCat.xStart &&
+      coordinates.clickX <= itemCat.xEnd &&
+      coordinates.clickY >= itemCat.yStart &&
+      coordinates.clickY <= itemCat.yEnd
     ) {
-      console.log("cat is found");
-      setAlertOverlay({ show: true, name: "cat is found", variant: "success" });
-          setTimeout(()=>setAlertOverlay({ ...alertOverlay, show: false }), 2000)
-
+      setAlertOverlay({
+        show: true,
+        name: "the Cat is found",
+        variant: "success",
+      });
     } else {
       setAlertOverlay({
         show: true,
-        name: "incorrect: not the cat",
+        name: "incorrect: this is not the Cat",
         variant: "warning",
       });
-      setTimeout(()=>setAlertOverlay({ ...alertOverlay, show: false }), 2000)
-
     }
+    setTimeout(
+      () => setAlertOverlay({ variant: "", show: false, name: "" }),
+      2000
+    );
   }
 
   function FindPirate() {
     if (
-      clickX >= itemPirate.xStart &&
-      clickX <= itemPirate.xEnd &&
-      clickY >= itemPirate.yStart &&
-      clickY <= itemPirate.yEnd
+      coordinates.clickX >= itemPirate.xStart &&
+      coordinates.clickX <= itemPirate.xEnd &&
+      coordinates.clickY >= itemPirate.yStart &&
+      coordinates.clickY <= itemPirate.yEnd
     ) {
-      console.log("pirate is found");
       setAlertOverlay({
         show: true,
-        name: "pirate is found",
+        name: "the Pirate is found",
         variant: "success",
       });
-      setTimeout(()=>setAlertOverlay({ ...alertOverlay, show: false }), 2000)
-
     } else {
-      console.log("not the pirate");
       setAlertOverlay({
         show: true,
-        name: "incorrect: not the pirate",
+        name: "Incorrect: this is not the Pirate",
         variant: "warning",
       });
-      setTimeout(()=>setAlertOverlay({ ...alertOverlay, show: false }), 2000)
-
     }
+    setTimeout(
+      () => setAlertOverlay({ variant: "", show: false, name: "" }),
+      2000
+    );
   }
 
   return (
     <>
       <Alert
+        //alert overlay to notify the user if the element selected has been found or not
         className={` ${!alertOverlay.show ? "fadeOut" : ""}`}
         variant={alertOverlay.variant}
         style={{
@@ -93,9 +100,6 @@ export default function SearchOverlay({
           transform: ` translate(-50%, 0%)`,
           zIndex: "4",
         }}
-        // onTransitionEnd={() =>
-        //   setAlertOverlay({ ...alertOverlay, show: false }), 2000)
-        // }
       >
         {alertOverlay.name}
       </Alert>
@@ -105,8 +109,8 @@ export default function SearchOverlay({
           zIndex: gameStart ? "3" : "-2",
           width: "200px",
           height: "100px",
-          top: posY,
-          left: posX,
+          top: position.y,
+          left: position.x,
           //extra overlay between the target (round) and the selection box (rectangle), to avoid movement triggered when moving the mouse between the empty spaces of the two elements
         }}
       >
@@ -118,10 +122,10 @@ export default function SearchOverlay({
             height: "100px",
             borderRadius: "50%",
             border: "3px solid red",
-            top: posY,
-            left: posX,
+            top: position.y,
+            left: position.x,
           }}
-          //circle target
+          //circle red target
         ></div>
         <div
           style={{
@@ -131,10 +135,10 @@ export default function SearchOverlay({
             height: "95px",
             borderRadius: "50%",
             border: "3px solid white",
-            top: posY + 3,
-            left: posX + 3,
+            top: position.y + 3,
+            left: position.x + 3,
           }}
-          //second color target
+          //circle white target
         ></div>
         <div
           style={{
@@ -147,13 +151,13 @@ export default function SearchOverlay({
             borderRadius: "5px",
             backgroundColor: "#212529",
             border: "1px solid white",
-            top: posY,
-            left: posX + 100,
+            top: position.y,
+            left: position.x + 100,
             color: "white",
             fontWeight: "bolder",
             textAlign: "center",
           }}
-          //rectangle overlay
+          //rectangle overlay with options
         >
           <div onClick={FindCat} style={{ cursor: "pointer" }}>
             Cat

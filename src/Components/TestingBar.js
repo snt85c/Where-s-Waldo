@@ -1,4 +1,4 @@
-export default function TestingBar({ clickX, clickY, screenSize, screenX, screenY }) {
+export default function TestingBar({ clickX, clickY, screenX, screenY }) {
     return (
       <div
         style={{
@@ -17,8 +17,6 @@ export default function TestingBar({ clickX, clickY, screenSize, screenX, screen
         <div style={{ color: "red", fontWeight: "bolder" }}>{clickX} </div>
         ClickY
         <div style={{ color: "red", fontWeight: "bolder" }}>{clickY}</div>
-        ScreenSize
-        <div style={{ color: "red", fontWeight: "bolder" }}>{screenSize}</div>
         coordinates:
         <div style={{ color: "red", fontWeight: "bolder" }}>
           {screenX} {screenY}

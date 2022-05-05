@@ -32,6 +32,7 @@ export default function Login() {
       navigate("/home");
     } catch (err) {
       setError(err.message);
+      setTimeout(() => setError(""), 2000);
     }
   };
 
@@ -42,6 +43,7 @@ export default function Login() {
       navigate("/home");
     } catch (err) {
       setError(err.message);
+      setTimeout(() => setError(""), 2000);
     }
   };
 
@@ -52,6 +54,7 @@ export default function Login() {
       navigate("/home");
     } catch (err) {
       setError(err.message);
+      setTimeout(() => setError(""), 2000);
     }
   };
 
@@ -81,10 +84,7 @@ export default function Login() {
 
   return (
     <>
-      <SkyBackground
-        screenX={clientCoords.x / 20}
-        screenY={clientCoords.y / 20}
-      />
+      <SkyBackground X={clientCoords.x / 20} Y={clientCoords.y / 20} />
       <Stack
         gap={3}
         className="col-md-5 mx-auto"
