@@ -2,7 +2,8 @@ import { Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../Firebase";
-export default function ScoresOverlay({ setCheckScores, checkScores }) {
+export default function ScoresOverlay({ui, setUi }) {
+  
   const [scores, setScores] = useState([]);
 
   useEffect(() => {
@@ -35,7 +36,7 @@ export default function ScoresOverlay({ setCheckScores, checkScores }) {
     <>
       <div
         style={{
-          display: checkScores ? "flex" : "none",
+          display: ui.checkScores ? "flex" : "none",
           flexDirection: "column",
           justifyContent: "space-between",
           position: "fixed",
@@ -53,7 +54,7 @@ export default function ScoresOverlay({ setCheckScores, checkScores }) {
         }}
       >
         <ShowScores />
-        <Button variant="light" onClick={() => setCheckScores(false)}>
+        <Button variant="light" onClick={() => setUi({...ui, checkScores:false})}>
           Close Top Scores
         </Button>
       </div>

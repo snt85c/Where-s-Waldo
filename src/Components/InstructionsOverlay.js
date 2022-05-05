@@ -3,17 +3,12 @@ import pirate from "../img/pirate.png";
 import "../App.css";
 
 import { Button } from "react-bootstrap";
-export default function InstructionsOverlay({
-  gameStart,
-  setGameStart,
-  setCheckScores,
-}) {
-
+export default function InstructionsOverlay({ setUi, ui }) {
   return (
     <>
       <div
         style={{
-          display: !gameStart ? "flex" : "none",
+          display: !ui.gameStart ? "flex" : "none",
           flexDirection: "column",
           justifyContent: "space-between",
           position: "fixed",
@@ -42,7 +37,7 @@ export default function InstructionsOverlay({
           className="text-bottom"
           style={{ display: "flex", flexDirection: "row" }}
         >
-          <div /*style={{ display: "flex", flexDirection: "column" }}*/>
+          <div>
             <img
               width={80}
               height={100}
@@ -51,10 +46,10 @@ export default function InstructionsOverlay({
               style={{ border: "white 1px solid", borderRadius: "5%" }}
             />
             <div style={{ color: "gray" }}>
-              Nulla vitae elit libero, a pharetra augue mollis interdum.
+              Master of the sea, ready to pick a fight, as well as leave as soon as possible on his ship .
             </div>
           </div>
-          <div /*style={{ display: "flex", flexDirection: "column" }}*/>
+          <div>
             <img
               width={80}
               height={100}
@@ -63,17 +58,23 @@ export default function InstructionsOverlay({
               style={{ border: "white 1px solid", borderRadius: "5%" }}
             />
             <div style={{ color: "gray" }}>
-              Nulla vitae elit libero, a pharetra augue mollis interdum.
+              Lazily waiting to be found on some roof in the city.
             </div>
           </div>
         </div>
         <h6>try to beat the score by being faster than other players</h6>
 
         <div className="d-grid gap-2 mx-2">
-          <Button variant="light" onClick={() => setCheckScores(true)}>
+          <Button
+            variant="light"
+            onClick={() => setUi({ ...ui, checkScores: true })}
+          >
             Check Top Scores
           </Button>
-          <Button variant="warning" onClick={() => {setGameStart(true)} }>
+          <Button
+            variant="warning"
+            onClick={() => setUi({ ...ui, gameStart: true })}
+          >
             Start
           </Button>
         </div>

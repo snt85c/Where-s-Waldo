@@ -18,8 +18,11 @@ export default function Main() {
   });
   const [itemCat, setItemCat] = useState();
   const [itemPirate, setItemPirate] = useState();
-  const [gameStart, setGameStart] = useState(false);
-  const [checkScores, setCheckScores] = useState(false);
+  const [ui, setUi] = useState({
+    gameStart: false,
+    gameEnd: false,
+    checkScores: false,
+  });
 
   useEffect(() => {
     async function getData() {
@@ -40,7 +43,7 @@ export default function Main() {
 
   return (
     <>
-      <Navbar gameStart={gameStart} />
+      <Navbar gameStart={ui.gameStart} />
       {/* <TestingBar
         clickX={coordinates.clickX}
         clickY={coordinates.clickY}
@@ -51,23 +54,16 @@ export default function Main() {
       <CityBackground
         setCoordinates={setCoordinates}
         coordinates={coordinates}
-        gameStart={gameStart}
+        gameStart={ui.gameStart}
       />
       <SearchOverlay
         coordinates={coordinates}
-        gameStart={gameStart}
+        gameStart={ui.gameStart}
         itemCat={itemCat}
         itemPirate={itemPirate}
       />
-      <InstructionsOverlay
-        gameStart={gameStart}
-        setGameStart={setGameStart}
-        setCheckScores={setCheckScores}
-      />
-      <ScoresOverlay
-        checkScores={checkScores}
-        setCheckScores={setCheckScores}
-      />
+      <InstructionsOverlay setUi={setUi} ui={ui} />
+      <ScoresOverlay setUi={setUi} ui={ui} />
     </>
   );
 }
