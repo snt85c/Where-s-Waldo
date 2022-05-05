@@ -3,13 +3,13 @@ import cityBackground from "../img/s020gwdtsen31.png";
 export default function CityBackground({
   setCoordinates,
   coordinates,
-  gameStart,
+  ui
 }) {
   return (
     <img
       scr={cityBackground}
       onMouseMove={(e) => {
-        if (gameStart) {
+        if (ui.gameStart && !ui.gameOver) {
           setCoordinates({
             ...coordinates,
             screenX: e.pageX,

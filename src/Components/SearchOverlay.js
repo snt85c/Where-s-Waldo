@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { Alert } from "react-bootstrap";
 
 export default function SearchOverlay({
-  gameStart,
+  ui,
+  setUi,
   coordinates,
   itemCat,
   itemPirate,
@@ -29,6 +30,17 @@ export default function SearchOverlay({
     });
   }, [coordinates.screenX, coordinates.screenY]);
 
+  useEffect(()=>{
+    if(ui.pirateFound && ui.catFound){
+      setUi({...ui,gameOver:true})
+      setAlertOverlay({
+        show: true,
+        name: "GAMEOVER",
+        variant: "success",
+      });
+    }
+  },[ui])
+
   useEffect(() => {
     //on initial click, set coordinates as such, so that the overlay is centered on the click
     setPosition({
@@ -49,6 +61,8 @@ export default function SearchOverlay({
         name: "the Cat is found",
         variant: "success",
       });
+      setUi({...ui,catFound:true})
+
     } else {
       setAlertOverlay({
         show: true,
@@ -74,6 +88,7 @@ export default function SearchOverlay({
         name: "the Pirate is found",
         variant: "success",
       });
+      setUi({...ui,pirateFound:true})
     } else {
       setAlertOverlay({
         show: true,
@@ -106,7 +121,7 @@ export default function SearchOverlay({
       <div
         style={{
           position: "fixed",
-          zIndex: gameStart ? "3" : "-2",
+          zIndex: ui.gameStart ? "3" : "-2",
           width: "200px",
           height: "100px",
           top: position.y,
@@ -117,7 +132,7 @@ export default function SearchOverlay({
         <div
           style={{
             position: "fixed",
-            zIndex: gameStart ? "3" : "-2",
+            zIndex: ui.gameStart ? "3" : "-2",
             width: "100px",
             height: "100px",
             borderRadius: "50%",
@@ -130,7 +145,7 @@ export default function SearchOverlay({
         <div
           style={{
             position: "fixed",
-            zIndex: gameStart ? "3" : "-2",
+            zIndex: ui.gameStart ? "3" : "-2",
             width: "95px",
             height: "95px",
             borderRadius: "50%",
@@ -142,8 +157,9 @@ export default function SearchOverlay({
         ></div>
         <div
           style={{
+            display: ui.pirateFound && ui.catFound?"none":"inline",
             position: "fixed",
-            zIndex: gameStart ? "3" : "-2",
+            zIndex: ui.gameStart ? "3" : "-2",
             width: "100px",
             height: "100px",
             padding: "10px",
@@ -159,10 +175,10 @@ export default function SearchOverlay({
           }}
           //rectangle overlay with options
         >
-          <div onClick={FindCat} style={{ cursor: "pointer" }}>
+          <div onClick={FindCat} style={{ cursor: "pointer", display:ui.catFound?"none":"flex"}}>
             Cat
           </div>
-          <div onClick={FindPirate} style={{ cursor: "pointer" }}>
+          <div onClick={FindPirate} style={{ cursor: "pointer",display:ui.pirateFound?"none":"flex" }}>
             Pirate
           </div>
         </div>

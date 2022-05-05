@@ -20,9 +20,12 @@ export default function Main() {
   const [itemPirate, setItemPirate] = useState();
   const [ui, setUi] = useState({
     gameStart: false,
-    gameEnd: false,
+    gameOver: false,
     checkScores: false,
+    pirateFound:false,
+    catFound:false    
   });
+  
 
   useEffect(() => {
     async function getData() {
@@ -43,7 +46,7 @@ export default function Main() {
 
   return (
     <>
-      <Navbar gameStart={ui.gameStart} />
+      <Navbar ui={ui} />
       {/* <TestingBar
         clickX={coordinates.clickX}
         clickY={coordinates.clickY}
@@ -54,11 +57,12 @@ export default function Main() {
       <CityBackground
         setCoordinates={setCoordinates}
         coordinates={coordinates}
-        gameStart={ui.gameStart}
+        ui={ui}
       />
       <SearchOverlay
         coordinates={coordinates}
-        gameStart={ui.gameStart}
+        ui={ui}
+        setUi={setUi}
         itemCat={itemCat}
         itemPirate={itemPirate}
       />
