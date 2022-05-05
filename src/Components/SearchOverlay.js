@@ -94,7 +94,7 @@ export default function SearchOverlay({
           zIndex: "4",
         }}
         // onTransitionEnd={() =>
-        //   ()=>setTimeout(setAlertOverlay({ ...alertOverlay, show: false }), 2000)
+        //   setAlertOverlay({ ...alertOverlay, show: false }), 2000)
         // }
       >
         {alertOverlay.name}

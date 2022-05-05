@@ -13,8 +13,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [clientX, setClientX] = useState();
-  const [clientY, setClientY] = useState();
+  const [clientCoords, setClientCoords] = useState({ x: "", y: "" });
 
   const navigate = useNavigate();
   const { logIn, googleSignIn, signInAnon, GitHubSignIn, user } = useUserAuth();
@@ -43,7 +42,6 @@ export default function Login() {
       navigate("/home");
     } catch (err) {
       setError(err.message);
-      console.log(err.message, "errmessage");
     }
   };
 
@@ -65,6 +63,7 @@ export default function Login() {
       navigate("/home");
     } catch (err) {
       setError(err.message);
+      setTimeout(() => setError(""), 2000);
     }
   };
 
@@ -82,7 +81,10 @@ export default function Login() {
 
   return (
     <>
-      <SkyBackground screenX={clientX / 20} screenY={clientY / 20} />
+      <SkyBackground
+        screenX={clientCoords.x / 20}
+        screenY={clientCoords.y / 20}
+      />
       <Stack
         gap={3}
         className="col-md-5 mx-auto"
@@ -100,8 +102,7 @@ export default function Login() {
           backgroundPosition: "left",
         }}
         onMouseMove={(e) => {
-          setClientX(e.clientX);
-          setClientY(e.clientY);
+          setClientCoords({ x: e.clientX, y: e.clientY });
         }}
       >
         <h1
@@ -117,7 +118,21 @@ export default function Login() {
         >
           Where's Waldo?
         </h1>
-        {error && <Alert variant="danger">{error}</Alert>}
+        {error && (
+          <Alert
+            style={{
+              position: "absolute",
+              top: "100px",
+              left: "50vw",
+              transform: ` translate(-50%, 0%)`,
+              zIndex: "4",
+            }}
+            className={` ${!error ? "fadeOut" : ""}`}
+            variant="danger"
+          >
+            {error}
+          </Alert>
+        )}
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-2" controlId="formBasicEmail">
             <Form.Control
