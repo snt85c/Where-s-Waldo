@@ -8,7 +8,7 @@ export default function InstructionsOverlay({ setUi, ui }) {
     <>
       <div
         style={{
-          display: !ui.gameStart ? "flex" : "none",
+          display: !ui.gameStart || ui.instruction ? "flex" : "none",
           flexDirection: "column",
           justifyContent: "space-between",
           position: "fixed",
@@ -72,10 +72,18 @@ export default function InstructionsOverlay({ setUi, ui }) {
             Check Top Scores
           </Button>
           <Button
+          style={{display:ui.instruction?"none": "inline"}}
             variant="warning"
             onClick={() => setUi({ ...ui, gameStart: true })}
           >
             Start
+          </Button>
+          <Button
+          style={{display:ui.instruction?"inline": "none"}}
+            variant="warning"
+            onClick={() => setUi({ ...ui, instruction: false })}
+          >
+            Close Instructions
           </Button>
         </div>
       </div>

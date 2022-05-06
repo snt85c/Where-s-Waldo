@@ -2,7 +2,7 @@ import { useUserAuth } from "./UserAuthContext";
 import { Stack, Button, Navbar, Image } from "react-bootstrap";
 import { useState, useEffect } from "react";
 
-export default function Nav({ ui}) {
+export default function Nav({ ui, setUi }) {
   const { user, logout } = useUserAuth();
   const [time, setTime] = useState(0);
 
@@ -14,9 +14,17 @@ export default function Nav({ ui}) {
     }
   };
 
+
   function Instructions() {
     return (
-      <div style={{ display: ui.gameStart ? "flex" : "none", color: "white" }}>
+      <div
+        onClick={() => setUi({ ...ui, instruction: !ui.instruction })}
+        style={{
+          display: ui.gameStart ? "flex" : "none",
+          color: "white",
+          cursor: "pointer",
+        }}
+      >
         INSTRUCTIONS
       </div>
     );
@@ -29,17 +37,21 @@ export default function Nav({ ui}) {
         interval = setInterval(() => {
           setTime((prevTime) => prevTime + 10);
         }, 10);
-      } else if (!ui.gameStart || ui.gameOver) {
-        clearInterval(interval);
+      } else if (/*!ui.gameStart ||*/ ui.gameOver) {
+        // setUi({...ui,finalScore: time})
+        // console.log(time)
+          clearInterval(interval);
       }
       return () => clearInterval(interval);
     }, [ui.gameStart]);
     return (
       <>
-        <div style={{ display: ui.gameStart ? "flex" : "none", color: "white" }}>
+        <div
+          style={{ display: ui.gameStart ? "flex" : "none", color: "white" }}
+        >
           <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
-          <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span>
-          <span>{("0" + ((time / 10) % 100)).slice(-2)}</span>
+          <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}</span>
+          {/* <span>{("0" + ((time / 10) % 100)).slice(-2)}</span> */}
         </div>
       </>
     );

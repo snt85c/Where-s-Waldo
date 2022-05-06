@@ -131,6 +131,7 @@ export default function SearchOverlay({
       >
         <div
           style={{
+            display: ui.gameOver?"none":"inline",
             position: "fixed",
             zIndex: ui.gameStart ? "3" : "-2",
             width: "100px",
@@ -144,6 +145,7 @@ export default function SearchOverlay({
         ></div>
         <div
           style={{
+            display: ui.gameOver?"none":"inline",
             position: "fixed",
             zIndex: ui.gameStart ? "3" : "-2",
             width: "95px",
@@ -157,7 +159,7 @@ export default function SearchOverlay({
         ></div>
         <div
           style={{
-            display: ui.pirateFound && ui.catFound?"none":"inline",
+            display: ui.gameOver?"none":"inline",
             position: "fixed",
             zIndex: ui.gameStart ? "3" : "-2",
             width: "100px",

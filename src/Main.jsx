@@ -22,8 +22,10 @@ export default function Main() {
     gameStart: false,
     gameOver: false,
     checkScores: false,
+    instruction:false,
     pirateFound:false,
-    catFound:false    
+    catFound:false,
+    finalScore:0    
   });
   
 
@@ -46,7 +48,7 @@ export default function Main() {
 
   return (
     <>
-      <Navbar ui={ui} />
+      <Navbar ui={ui} setUi={setUi} />
       {/* <TestingBar
         clickX={coordinates.clickX}
         clickY={coordinates.clickY}

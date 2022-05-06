@@ -9,7 +9,7 @@ export default function CityBackground({
     <img
       scr={cityBackground}
       onMouseMove={(e) => {
-        if (ui.gameStart && !ui.gameOver) {
+        if (ui.gameStart && !ui.gameOver && !ui.instruction) {
           setCoordinates({
             ...coordinates,
             screenX: e.pageX,
