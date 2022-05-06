@@ -32,12 +32,7 @@ export default function SearchOverlay({
 
   useEffect(()=>{
     if(ui.pirateFound && ui.catFound){
-      setUi({...ui,gameOver:true})
-      setAlertOverlay({
-        show: true,
-        name: "GAMEOVER",
-        variant: "success",
-      });
+      setUi({...ui,gameOver:true, gameStart:false})
     }
   },[ui])
 

@@ -8,6 +8,7 @@ import TestingBar from "./Components/TestingBar";
 import InstructionsOverlay from "./Components/InstructionsOverlay";
 import ScoresOverlay from "./Components/ScoresOverlay";
 import SearchOverlay from "./Components/SearchOverlay";
+import GameoverOverlay from "./Components/GameoverOverlay";
 
 export default function Main() {
   const [coordinates, setCoordinates] = useState({
@@ -27,6 +28,8 @@ export default function Main() {
     catFound:false,
     finalScore:0    
   });
+
+  useEffect(()=>{console.log(ui)},[ui])
   
 
   useEffect(() => {
@@ -70,6 +73,7 @@ export default function Main() {
       />
       <InstructionsOverlay setUi={setUi} ui={ui} />
       <ScoresOverlay setUi={setUi} ui={ui} />
+      <GameoverOverlay setUi={setUi} ui={ui}/>
     </>
   );
 }

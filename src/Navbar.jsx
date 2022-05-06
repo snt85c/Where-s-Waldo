@@ -6,6 +6,10 @@ export default function Nav({ ui, setUi }) {
   const { user, logout } = useUserAuth();
   const [time, setTime] = useState(0);
 
+  useEffect(() => {
+    console.log(ui);
+  }, []);
+
   const handleLogout = async () => {
     try {
       await logout();
@@ -14,22 +18,6 @@ export default function Nav({ ui, setUi }) {
     }
   };
 
-
-  function Instructions() {
-    return (
-      <div
-        onClick={() => setUi({ ...ui, instruction: !ui.instruction })}
-        style={{
-          display: ui.gameStart ? "flex" : "none",
-          color: "white",
-          cursor: "pointer",
-        }}
-      >
-        INSTRUCTIONS
-      </div>
-    );
-  }
-
   function Timer() {
     useEffect(() => {
       let interval;
@@ -37,21 +25,22 @@ export default function Nav({ ui, setUi }) {
         interval = setInterval(() => {
           setTime((prevTime) => prevTime + 10);
         }, 10);
-      } else if (/*!ui.gameStart ||*/ ui.gameOver) {
+      } else if (!ui.gameStart || ui.gameOver) {
         // setUi({...ui,finalScore: time})
         // console.log(time)
-          clearInterval(interval);
+        clearInterval(interval);
       }
       return () => clearInterval(interval);
     }, [ui.gameStart]);
+    
     return (
       <>
         <div
           style={{ display: ui.gameStart ? "flex" : "none", color: "white" }}
         >
           <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
-          <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}</span>
-          {/* <span>{("0" + ((time / 10) % 100)).slice(-2)}</span> */}
+          <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span>
+          <span>{("0" + ((time / 10) % 100)).slice(-2)}</span>
         </div>
       </>
     );
@@ -72,8 +61,17 @@ export default function Nav({ ui, setUi }) {
         </Navbar.Text>
         <Navbar.Collapse className="justify-content-end ">
           <Stack direction="horizontal" gap={3}>
-            <Instructions />
             <Timer />
+            <Button
+              size="sm"
+              onClick={() => setUi({ ...ui, instruction: !ui.instruction })}
+              variant="warning"
+              style={{
+                display: ui.gameStart ? "flex" : "none",
+              }}
+            >
+              INSTRUCTIONS
+            </Button>
             {user && (
               <Image
                 roundedCircle
