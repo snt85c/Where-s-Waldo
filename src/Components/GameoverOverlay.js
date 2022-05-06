@@ -1,5 +1,20 @@
 import { Button } from "react-bootstrap";
+import { useEffect } from "react";
 export default function GameoverOverlay({ ui, setUi }) {
+  function Restart() {
+    useEffect(() => {
+      setUi({
+        gameStart: true,
+        gameOver: false,
+        checkScores: false,
+        instruction: false,
+        pirateFound: false,
+        catFound: false,
+        finalScore: 0,
+      });
+    }, []);
+  }
+
   return (
     <>
       <div
@@ -31,7 +46,13 @@ export default function GameoverOverlay({ ui, setUi }) {
         >
           final score:{ui.finalScore}
         </div>
-        <div style={{display:"flex", flexDirection:"column", justifyContent:"space-between"}}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+          }}
+        >
           <Button
             variant="light"
             onClick={() => setUi({ ...ui, checkScores: true })}
@@ -41,8 +62,7 @@ export default function GameoverOverlay({ ui, setUi }) {
           <Button
             style={{ display: ui.instruction ? "none" : "inline" }}
             variant="warning"
-            onClick={() =>
-              setUi({
+            onClick={() => setUi({
                 gameStart: true,
                 gameOver: false,
                 checkScores: false,
@@ -50,8 +70,7 @@ export default function GameoverOverlay({ ui, setUi }) {
                 pirateFound: false,
                 catFound: false,
                 finalScore: 0,
-              })
-            }
+              })}
           >
             Replay
           </Button>

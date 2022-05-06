@@ -6,10 +6,6 @@ export default function Nav({ ui, setUi }) {
   const { user, logout } = useUserAuth();
   const [time, setTime] = useState(0);
 
-  useEffect(() => {
-    console.log(ui);
-  }, []);
-
   const handleLogout = async () => {
     try {
       await logout();
@@ -25,14 +21,16 @@ export default function Nav({ ui, setUi }) {
         interval = setInterval(() => {
           setTime((prevTime) => prevTime + 10);
         }, 10);
-      } else if (!ui.gameStart || ui.gameOver) {
-        // setUi({...ui,finalScore: time})
-        // console.log(time)
+      } else if (!ui.gameStart ) {
         clearInterval(interval);
+      }
+      else if(ui.gameOver){
+        
+        setUi({...ui,finalScore: time})
       }
       return () => clearInterval(interval);
     }, [ui.gameStart]);
-    
+
     return (
       <>
         <div

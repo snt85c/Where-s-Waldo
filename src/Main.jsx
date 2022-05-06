@@ -28,9 +28,7 @@ export default function Main() {
     catFound:false,
     finalScore:0    
   });
-
-  useEffect(()=>{console.log(ui)},[ui])
-  
+useEffect(()=>{console.log(ui)},[ui])  
 
   useEffect(() => {
     async function getData() {

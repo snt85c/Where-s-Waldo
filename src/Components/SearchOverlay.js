@@ -34,7 +34,7 @@ export default function SearchOverlay({
     if(ui.pirateFound && ui.catFound){
       setUi({...ui,gameOver:true, gameStart:false})
     }
-  },[ui])
+  },[ui.pirateFound, ui.catFound])
 
   useEffect(() => {
     //on initial click, set coordinates as such, so that the overlay is centered on the click

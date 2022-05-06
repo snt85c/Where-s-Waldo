@@ -9,7 +9,7 @@ export default function SkyBackground({ X, Y}) {
           zIndex: "-2",
           minWidth: "100vw",
           minHeight: "100vh",
-          backgroundPosition: `${-X}px  ${Y?-Y:0}px`,
+          backgroundPosition: `${-X}px  ${-Y}px`,
           overflow: "hidden",
         }}
       ></div>
