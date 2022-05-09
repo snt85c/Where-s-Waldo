@@ -32,9 +32,6 @@ export default function Main() {
     catFound:false,
   });
   const [finalScore, setFinalScore] = useState(0)
-useEffect(()=>{console.log(ui, "in main:35")},[ui.gameOver])  
-useEffect(()=>{console.log(finalScore, "in main:36")},[finalScore])  
-
 
   useEffect(()=>{
     if(ui.gameOver){

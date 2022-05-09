@@ -30,11 +30,6 @@ export default function Nav({ ui, setUi, setFinalScore }) {
         setTime(0)
       }
       
-      
-      // else if (ui.gameOver) {
-      //   clearInterval(interval);
-      //   setFinalScore(time);
-      // }
       return () => {
         clearInterval(interval);
       };
@@ -43,7 +38,7 @@ export default function Nav({ ui, setUi, setFinalScore }) {
     return (
       <>
         <div
-          style={{ display: ui.gameStart || !ui.instruction || !ui.gameOver ? "flex" : "none", color: "white" }}
+          style={{ display: ui.gameStart ? "flex" : "none", color: "white" }}
         >
           <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
           <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span>
