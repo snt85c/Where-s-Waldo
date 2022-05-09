@@ -66,7 +66,6 @@ export default function GameoverOverlay({ ui, setUi, finalScore }) {
                 instruction: false,
                 pirateFound: false,
                 catFound: false,
-                finalScore: 0,
               })}
           >
             Replay

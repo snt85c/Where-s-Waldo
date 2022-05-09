@@ -33,6 +33,7 @@ export default function Main() {
   });
   const [finalScore, setFinalScore] = useState(0)
 
+useEffect(()=>{console.log(ui, finalScore)},[ui.gameOver])
   useEffect(()=>{
     if(ui.gameOver){
       addDoc(collection(db, "scores"), {
