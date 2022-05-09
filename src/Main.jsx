@@ -32,15 +32,14 @@ export default function Main() {
     catFound:false,
     finalScore:0    
   });
-// useEffect(()=>{console.log(ui)},[ui])  
+useEffect(()=>{console.log(ui, "in main:35")},[ui.gameOver])  
 
   useEffect(()=>{
     if(ui.gameOver){
-
       addDoc(collection(db, "scores"), {
-        name: user.displayName,
+        name: user.displayName?user.displayName:"Anonymous",
         image: user.photoURL,
-        time: 0
+        time: ui.finalScore
       });
     }
   },[ui.gameOver])

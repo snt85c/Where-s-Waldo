@@ -1,12 +1,8 @@
 import { Button } from "react-bootstrap";
-import { useEffect } from "react";
 import { useUserAuth } from "../UserAuthContext";
-
-
 
 export default function GameoverOverlay({ ui, setUi }) {
   const { user } = useUserAuth();
-
 
   return (
     <>
@@ -16,6 +12,7 @@ export default function GameoverOverlay({ ui, setUi }) {
           flexDirection: "column",
           justifyContent: "space-between",
           position: "fixed",
+          zIndex:"3",
           top: "50%",
           left: "50%",
           transform: ` translate(-50%, -50%)`,
@@ -27,8 +24,11 @@ export default function GameoverOverlay({ ui, setUi }) {
           padding: "2%",
           color: "white",
           textAlign: "center",
+
         }}
       >
+        <div style={{overflow:"auto", maxHeight:"100px"}}>
+
         <h1 style={{ fontWeight: "bolder", letterSpacing: "5px" }}>GAMEOVER</h1>
         <div
           style={{
@@ -36,10 +36,11 @@ export default function GameoverOverlay({ ui, setUi }) {
             justifyContent: "center",
             alignItems: "center",
           }}
-        >
+          >
           {user.displayName? user.displayName: "Anonymous" } {" "}
           final score:{ui.finalScore}
         </div>
+          </div>
         <div
           style={{
             display: "flex",
@@ -48,16 +49,18 @@ export default function GameoverOverlay({ ui, setUi }) {
           }}
         >
           <Button
+            style={{ margin:"5px" }}
+
             variant="light"
             onClick={() => setUi({ ...ui, checkScores: true })}
           >
             Check Top Scores
           </Button>
           <Button
-            style={{ display: ui.instruction ? "none" : "inline" }}
+            style={{ display: ui.instruction ? "none" : "inline", margin:"5px" }}
             variant="warning"
-            onClick={() => setUi({
-                gameStart: true,
+            onClick={()=>setUi({
+                gameStart: false,
                 gameOver: false,
                 checkScores: false,
                 instruction: false,

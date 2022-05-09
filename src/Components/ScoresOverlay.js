@@ -2,8 +2,7 @@ import { Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../Firebase";
-export default function ScoresOverlay({ui, setUi }) {
-  
+export default function ScoresOverlay({ ui, setUi }) {
   const [scores, setScores] = useState([]);
 
   useEffect(() => {
@@ -22,14 +21,38 @@ export default function ScoresOverlay({ui, setUi }) {
 
   function ShowScores() {
     const result = scores.map((score) => (
-      <div style={{display:"flex",alignItems:"center", justifyContent:"space-evenly", margin:"5px"}}>
-        <img style={{borderRadius:"50%"}}width="50px" height="50px " src={score.image} />
-        <div>{score.name} </div>
-        <div>{score.time} {" "}seconds</div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-evenly",
+          margin: "5px",
+        }}
+      >
+        <img
+          style={{ borderRadius: "50%" }}
+          width="50px"
+          height="50px "
+          src={score.image}
+        />
+        <div style={{ minWidth: "120px" }}>{score.name} </div>
+        <div style={{ minWidth: "120px" }}>{score.time} seconds</div>
       </div>
     ));
 
-    return <>{result}</>;
+    return (
+      <>
+        <div
+          style={{
+            // overflow: "auto",
+            overflow: "hidden",
+            maxHeight: "300px",
+          }}
+        >
+          {result}
+        </div>
+      </>
+    );
   }
 
   return (
@@ -40,6 +63,7 @@ export default function ScoresOverlay({ui, setUi }) {
           flexDirection: "column",
           justifyContent: "space-between",
           position: "fixed",
+          zIndex: "4",
           top: "50%",
           left: "50%",
           transform: ` translate(-50%, -50%)`,
@@ -54,7 +78,10 @@ export default function ScoresOverlay({ui, setUi }) {
         }}
       >
         <ShowScores />
-        <Button variant="light" onClick={() => setUi({...ui, checkScores:false})}>
+        <Button
+          variant="light"
+          onClick={() => setUi({ ...ui, checkScores: false })}
+        >
           Close Top Scores
         </Button>
       </div>
