@@ -30,16 +30,18 @@ export default function Main() {
     instruction:false,
     pirateFound:false,
     catFound:false,
-    finalScore:0    
   });
+  const [finalScore, setFinalScore] = useState(0)
 useEffect(()=>{console.log(ui, "in main:35")},[ui.gameOver])  
+useEffect(()=>{console.log(finalScore, "in main:36")},[finalScore])  
+
 
   useEffect(()=>{
     if(ui.gameOver){
       addDoc(collection(db, "scores"), {
         name: user.displayName?user.displayName:"Anonymous",
         image: user.photoURL,
-        time: ui.finalScore
+        time: finalScore
       });
     }
   },[ui.gameOver])
@@ -63,7 +65,7 @@ useEffect(()=>{console.log(ui, "in main:35")},[ui.gameOver])
 
   return (
     <>
-      <Navbar ui={ui} setUi={setUi} />
+      <Navbar ui={ui} setUi={setUi} setFinalScore={setFinalScore} />
       {/* <TestingBar
         clickX={coordinates.clickX}
         clickY={coordinates.clickY}
@@ -85,7 +87,7 @@ useEffect(()=>{console.log(ui, "in main:35")},[ui.gameOver])
       />
       <InstructionsOverlay setUi={setUi} ui={ui} />
       <ScoresOverlay setUi={setUi} ui={ui} />
-      <GameoverOverlay setUi={setUi} ui={ui}/>
+      <GameoverOverlay setUi={setUi} ui={ui} finalScore={finalScore}/>
     </>
   );
 }

@@ -1,7 +1,7 @@
 import { Button } from "react-bootstrap";
 import { useUserAuth } from "../UserAuthContext";
 
-export default function GameoverOverlay({ ui, setUi }) {
+export default function GameoverOverlay({ ui, setUi, finalScore }) {
   const { user } = useUserAuth();
 
   return (
@@ -38,7 +38,7 @@ export default function GameoverOverlay({ ui, setUi }) {
           }}
           >
           {user.displayName? user.displayName: "Anonymous" } {" "}
-          final score:{ui.finalScore}
+          final score:{finalScore}
         </div>
           </div>
         <div

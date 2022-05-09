@@ -1,10 +1,8 @@
 import { useUserAuth } from "./UserAuthContext";
 import { Stack, Button, Navbar, Image } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import { useStopwatch } from 'react-timer-hook';
 
-
-export default function Nav({ ui, setUi }) {
+export default function Nav({ ui, setUi, setFinalScore }) {
   const { user, logout } = useUserAuth();
   const [time, setTime] = useState(0);
 
@@ -16,7 +14,6 @@ export default function Nav({ ui, setUi }) {
     }
   };
 
-
   function Timer() {
     useEffect(() => {
       let interval;
@@ -24,61 +21,35 @@ export default function Nav({ ui, setUi }) {
         interval = setInterval(() => {
           setTime((prevTime) => prevTime + 10);
         }, 10);
-      } else if (!ui.gameStart ) {
-        clearInterval(interval);
-        if(ui.gameOver){
-         setUi({...ui,finalScore: time})
-       }
+      } 
+      if(ui.gameOver){
+        clearInterval(interval)
+        setFinalScore(time)
       }
-      return () => {clearInterval(interval)};
-    }, [ui.gameStart, ui.gameOver]);
+      if(!ui.gameStart && !ui.gameOver){
+        setTime(0)
+      }
+      
+      
+      // else if (ui.gameOver) {
+      //   clearInterval(interval);
+      //   setFinalScore(time);
+      // }
+      return () => {
+        clearInterval(interval);
+      };
+    }, []);
 
     return (
       <>
         <div
-          style={{ display: ui.gameStart ? "flex" : "none", color: "white" }}
+          style={{ display: ui.gameStart || !ui.instruction || !ui.gameOver ? "flex" : "none", color: "white" }}
         >
           <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
           <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span>
           <span>{("0" + ((time / 10) % 100)).slice(-2)}</span>
         </div>
       </>
-    );
-  }
-
-  function MyStopwatch() {
-    const {
-      seconds,
-      minutes,
-      isRunning,
-      start,
-      pause,
-      reset,
-    } = useStopwatch({ autoStart: false });
-    
-    useEffect(()=>{
-      if(ui.gameOver){
-        reset()
-        setUi({...ui, finalScore:seconds})
-      }
-      if(ui.gameStart){
-        start()
-      }
-      if(ui.instruction){
-        pause()
-      }
-    },[ui])
-  
-    return (
-      <div style={{textAlign: 'center'}}>
-        <div style={{fontSize: '25px', color:"white"}}>
-          <span>{minutes}</span>:<span>{seconds}</span>
-        </div>
-        <div style={{fontSize: '10px', color:"white"}}>{isRunning ? 'Running' : 'Not running'}</div>
-        {/* <button onClick={start}>Start</button>
-        <button onClick={pause}>Pause</button>
-        <button onClick={reset}>Reset</button> */}
-      </div>
     );
   }
 
@@ -94,10 +65,9 @@ export default function Nav({ ui, setUi }) {
           }}
         >
           Where's Waldo?
-         </Navbar.Text>
+        </Navbar.Text>
         <Navbar.Collapse className="justify-content-end ">
-           <Stack direction="horizontal" gap={3}>
-            {/* <MyStopwatch /> */}
+          <Stack direction="horizontal" gap={3}>
             <Timer />
             <Button
               size="sm"
@@ -131,8 +101,8 @@ export default function Nav({ ui, setUi }) {
             >
               Log Out
             </Button>
-          </Stack>  
-        </Navbar.Collapse> 
+          </Stack>
+        </Navbar.Collapse>
       </Navbar>
     </>
   );
