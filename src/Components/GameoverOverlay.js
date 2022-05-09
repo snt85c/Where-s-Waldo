@@ -1,19 +1,12 @@
 import { Button } from "react-bootstrap";
 import { useEffect } from "react";
+import { useUserAuth } from "../UserAuthContext";
+
+
+
 export default function GameoverOverlay({ ui, setUi }) {
-  function Restart() {
-    useEffect(() => {
-      setUi({
-        gameStart: true,
-        gameOver: false,
-        checkScores: false,
-        instruction: false,
-        pirateFound: false,
-        catFound: false,
-        finalScore: 0,
-      });
-    }, []);
-  }
+  const { user } = useUserAuth();
+
 
   return (
     <>
@@ -44,6 +37,7 @@ export default function GameoverOverlay({ ui, setUi }) {
             alignItems: "center",
           }}
         >
+          {user.displayName? user.displayName: "Anonymous" } {" "}
           final score:{ui.finalScore}
         </div>
         <div

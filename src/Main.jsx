@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs,  doc, addDoc } from "firebase/firestore";
 import { db } from "./Firebase";
 import Navbar from "./Navbar";
 import CityBackground from "./Components/CityBackground";
@@ -9,8 +9,12 @@ import InstructionsOverlay from "./Components/InstructionsOverlay";
 import ScoresOverlay from "./Components/ScoresOverlay";
 import SearchOverlay from "./Components/SearchOverlay";
 import GameoverOverlay from "./Components/GameoverOverlay";
+import { useUserAuth } from "./UserAuthContext";
+
 
 export default function Main() {
+  const { user } = useUserAuth();
+
   const [coordinates, setCoordinates] = useState({
     screenX: 350,
     screenY: 400,
@@ -28,7 +32,18 @@ export default function Main() {
     catFound:false,
     finalScore:0    
   });
-useEffect(()=>{console.log(ui)},[ui])  
+// useEffect(()=>{console.log(ui)},[ui])  
+
+  useEffect(()=>{
+    if(ui.gameOver){
+
+      addDoc(collection(db, "scores"), {
+        name: user.displayName,
+        image: user.photoURL,
+        time: 0
+      });
+    }
+  },[ui.gameOver])
 
   useEffect(() => {
     async function getData() {

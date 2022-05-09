@@ -25,8 +25,10 @@ export default function Nav({ ui, setUi }) {
         clearInterval(interval);
       }
       else if(ui.gameOver){
-        
+        clearInterval(interval);        
         setUi({...ui,finalScore: time})
+        setTime(0)
+
       }
       return () => clearInterval(interval);
     }, [ui.gameStart]);
