@@ -12,7 +12,7 @@ export default function SearchOverlay({
   //posX and posX is the calculated place where the overlay for the search sould be, depending on mouseclick and mousemove, this way they stay locked on the same screen area
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [alertOverlay, setAlertOverlay] = useState({
-    show: false,
+    isAlertShown: false,
     name: "",
     variant: "",
   });
@@ -33,10 +33,10 @@ export default function SearchOverlay({
 
   useEffect(() => {
     //when all the items are found, set gameover to true
-    if (ui.pirateFound && ui.catFound && ui.chameleonFound) {
-      setUi({ ...ui, gameOver: true });
+    if (ui.isPirateFound && ui.isCatFound && ui.isChameleonFound) {
+      setUi({ ...ui, isGameOver: true });
     }
-  }, [ui.pirateFound, ui.catFound, ui.chameleonFound]);
+  }, [ui.isPirateFound, ui.isCatFound, ui.isChameleonFound]);
 
   useEffect(() => {
     //on initial click, set coordinates as such, so that the overlay is centered on the click
@@ -54,20 +54,20 @@ export default function SearchOverlay({
       coordinates.clickY <= itemCat.yEnd
     ) {
       setAlertOverlay({
-        show: true,
+        isAlertShown: true,
         name: "the Cat is found",
         variant: "success",
       });
-      setUi({ ...ui, catFound: true });
+      setUi({ ...ui, isCatFound: true });
     } else {
       setAlertOverlay({
-        show: true,
+        isAlertShown: true,
         name: "incorrect: this is not the Cat",
         variant: "warning",
       });
     }
     setTimeout(
-      () => setAlertOverlay({ variant: "", show: false, name: "" }),
+      () => setAlertOverlay({ variant: "", isAlertShown: false, name: "" }),
       2000
     );
   }
@@ -80,20 +80,20 @@ export default function SearchOverlay({
       coordinates.clickY <= itemPirate.yEnd
     ) {
       setAlertOverlay({
-        show: true,
+        isAlertShown: true,
         name: "the Pirate is found",
         variant: "success",
       });
-      setUi({ ...ui, pirateFound: true });
+      setUi({ ...ui, isPirateFound: true });
     } else {
       setAlertOverlay({
-        show: true,
+        isAlertShown: true,
         name: "Incorrect: this is not the Pirate",
         variant: "warning",
       });
     }
     setTimeout(
-      () => setAlertOverlay({ variant: "", show: false, name: "" }),
+      () => setAlertOverlay({ variant: "", isAlertShown: false, name: "" }),
       2000
     );
   }
@@ -106,14 +106,14 @@ export default function SearchOverlay({
       coordinates.clickY <= itemChameleon.yEnd
     ) {
       setAlertOverlay({
-        show: true,
+        isAlertShown: true,
         name: "the Chameleon is found",
         variant: "success",
       });
-      setUi({ ...ui, chameleonFound: true });
+      setUi({ ...ui, isChameleonFound: true });
     } else {
       setAlertOverlay({
-        show: true,
+        isAlertShown: true,
         name: "Incorrect: this is not the Chameleon",
         variant: "warning",
       });
@@ -128,7 +128,7 @@ export default function SearchOverlay({
     <>
       <Alert
         //alert overlay to notify the user if the element selected has been found or not
-        className={` ${!alertOverlay.show ? "fadeOut" : ""}`}
+        className={` ${!alertOverlay.isAlertShown ? "fadeOut" : ""}`}
         variant={alertOverlay.variant}
         style={{
           position: "absolute",
@@ -143,7 +143,7 @@ export default function SearchOverlay({
       <div
         style={{
           position: "fixed",
-          zIndex: ui.gameStart ? "3" : "-2",
+          zIndex: ui.isGameStart ? "3" : "-2",
           width: "200px",
           height: "100px",
           top: position.y,
@@ -153,9 +153,9 @@ export default function SearchOverlay({
       >
         <div
           style={{
-            display: ui.gameOver ? "none" : "inline",
+            display: ui.isGameOver ? "none" : "inline",
             position: "fixed",
-            zIndex: ui.gameStart ? "3" : "-2",
+            zIndex: ui.isGameStart ? "3" : "-2",
             width: "100px",
             height: "100px",
             borderRadius: "50%",
@@ -167,9 +167,9 @@ export default function SearchOverlay({
         ></div>
         <div
           style={{
-            display: ui.gameOver ? "none" : "inline",
+            display: ui.isGameOver ? "none" : "inline",
             position: "fixed",
-            zIndex: ui.gameStart ? "3" : "-2",
+            zIndex: ui.isGameStart ? "3" : "-2",
             width: "95px",
             height: "95px",
             borderRadius: "50%",
@@ -181,9 +181,9 @@ export default function SearchOverlay({
         ></div>
         <div
           style={{
-            display: ui.gameOver ? "none" : "inline",
+            display: ui.isGameOver ? "none" : "inline",
             position: "fixed",
-            zIndex: ui.gameStart ? "3" : "-2",
+            zIndex: ui.isGameStart ? "3" : "-2",
             width: "100px",
             height: "100px",
             padding: "10px",
@@ -204,7 +204,7 @@ export default function SearchOverlay({
             className="overlayOption"
             onClick={FindCat}
             style={{
-              display: ui.catFound ? "none" : "flex",
+              display: ui.isCatFound ? "none" : "flex",
             }}
           >
             Cat
@@ -213,7 +213,7 @@ export default function SearchOverlay({
             className="overlayOption"
             onClick={FindPirate}
             style={{
-              display: ui.pirateFound ? "none" : "flex",
+              display: ui.isPirateFound ? "none" : "flex",
             }}
           >
             Pirate
@@ -222,7 +222,7 @@ export default function SearchOverlay({
             className="overlayOption"
             onClick={FindChameleon}
             style={{
-              display: ui.chameleonFound ? "none" : "flex",
+              display: ui.isChameleonFound ? "none" : "flex",
             }}
           >
             Chameleon

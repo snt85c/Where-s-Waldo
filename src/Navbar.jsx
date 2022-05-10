@@ -17,16 +17,16 @@ export default function Nav({ ui, setUi, setFinalScore }) {
   function Timer() {
     useEffect(() => {
       let interval;
-      if (ui.gameStart) {
+      if (ui.isGameStart) {
         interval = setInterval(() => {
           setTime((prevTime) => prevTime + 10);
         }, 10);
       } 
-      if(ui.gameOver){
+      if(ui.isGameOver){
         clearInterval(interval)
         setFinalScore(time / 1000)
       }
-      if(!ui.gameStart && !ui.gameOver){
+      if(!ui.isGameStart && !ui.isGameOver){
         setTime(0)
       }
       
@@ -38,7 +38,7 @@ export default function Nav({ ui, setUi, setFinalScore }) {
     return (
       <>
         <div
-          style={{ display: ui.gameStart ? "flex" : "none", color: "white" }}
+          style={{ display: ui.isGameStart ? "flex" : "none", color: "white" }}
         >
           <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
           <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span>
@@ -66,10 +66,10 @@ export default function Nav({ ui, setUi, setFinalScore }) {
             <Timer />
             <Button
               size="sm"
-              onClick={() => setUi({ ...ui, instruction: !ui.instruction })}
+              onClick={() => setUi({ ...ui, isInstructionOverlayOpen: !ui.isInstructionOverlayOpen })}
               variant="warning"
               style={{
-                display: ui.gameStart ? "flex" : "none",
+                display: ui.isGameStart ? "flex" : "none",
               }}
             >
               INSTRUCTIONS

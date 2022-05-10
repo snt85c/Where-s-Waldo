@@ -62,7 +62,7 @@ export default function InstructionsOverlay({ setUi, ui }) {
     <>
       <div
         style={{
-          display: !ui.gameStart || ui.instruction ? "flex" : "none",
+          display: !ui.isGameStart || ui.isInstructionOverlayOpen ? "flex" : "none",
           flexDirection: "column",
           justifyContent: "space-between",
           position: "fixed",
@@ -104,21 +104,21 @@ export default function InstructionsOverlay({ setUi, ui }) {
         <div className="d-grid gap-2 mx-2">
           <Button
             variant="light"
-            onClick={() => setUi({ ...ui, checkScores: true })}
+            onClick={() => setUi({ ...ui, isScoresOverlayOpen: true })}
           >
             Check Top Scores
           </Button>
           <Button
-            style={{ display: ui.instruction ? "none" : "inline" }}
+            style={{ display: ui.isInstructionOverlayOpen ? "none" : "inline" }}
             variant="warning"
-            onClick={() => setUi({ ...ui, gameStart: true })}
+            onClick={() => setUi({ ...ui, isGameStart: true })}
           >
             Start
           </Button>
           <Button
-            style={{ display: ui.instruction ? "inline" : "none" }}
+            style={{ display: ui.isInstructionOverlayOpen ? "inline" : "none" }}
             variant="warning"
-            onClick={() => setUi({ ...ui, instruction: false })}
+            onClick={() => setUi({ ...ui, isInstructionOverlayOpen: false })}
           >
             Close Instructions
           </Button>

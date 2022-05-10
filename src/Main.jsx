@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { collection, getDocs,  doc, addDoc } from "firebase/firestore";
+import { collection, getDocs, addDoc } from "firebase/firestore";
 import { db } from "./Firebase";
 import Navbar from "./Navbar";
 import CityBackground from "./Components/CityBackground";
@@ -26,25 +26,25 @@ export default function Main() {
   const [itemPirate, setItemPirate] = useState();
   const [itemChameleon, setItemChameleon] = useState()
   const [ui, setUi] = useState({
-    gameStart: false,
-    gameOver: false,
-    checkScores: false,
-    instruction:false,
-    pirateFound:false,
-    catFound:false,
-    chameleonFound:false
+    isGameStart: false,
+    isGameOver: false,
+    isScoresOverlayOpen: false,
+    isInstructionOverlayOpen:false,
+    isPirateFound:false,
+    isCatFound:false,
+    isChameleonFound:false
   });
   const [finalScore, setFinalScore] = useState(0)
 
   useEffect(()=>{
-    if(ui.gameOver){
+    if(ui.isGameOver){
       addDoc(collection(db, "scores"), {
         name: user.displayName?user.displayName:"Anonymous",
         image: user.photoURL,
         time: finalScore
       });
     }
-  },[ui.gameOver])
+  },[ui.isGameOver])
 
   useEffect(() => {
     async function getData() {

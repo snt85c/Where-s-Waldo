@@ -9,7 +9,8 @@ export default function CityBackground({
     <img
       scr={cityBackground}
       onMouseMove={(e) => {
-        if (ui.gameStart && !ui.gameOver && !ui.instruction) {
+        if (ui.isGameStart && !ui.isGameOver && !ui.isInstructionOverlayOpen) {
+          //the screen wont move is the game is yet to start, won, or the instruction overlay is open, pausing the game
           setCoordinates({
             ...coordinates,
             screenX: e.pageX,

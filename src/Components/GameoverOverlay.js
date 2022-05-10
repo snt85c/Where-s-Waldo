@@ -8,7 +8,7 @@ export default function GameoverOverlay({ ui, setUi, finalScore }) {
     <>
       <div
         style={{
-          display: ui.gameOver ? "flex" : "none",
+          display: ui.isGameOver ? "flex" : "none",
           flexDirection: "column",
           justifyContent: "space-between",
           position: "fixed",
@@ -49,24 +49,25 @@ export default function GameoverOverlay({ ui, setUi, finalScore }) {
           <Button
             style={{ margin: "5px" }}
             variant="light"
-            onClick={() => setUi({ ...ui, checkScores: true })}
+            onClick={() => setUi({ ...ui, isScoresOverlayOpen: true })}
           >
             Check Top Scores
           </Button>
           <Button
             style={{
-              display: ui.instruction ? "none" : "inline",
+              display: ui.isInstructionOverlayOpen ? "none" : "inline",
               margin: "5px",
             }}
             variant="warning"
             onClick={() =>
               setUi({
-                gameStart: false,
-                gameOver: false,
-                checkScores: false,
-                instruction: false,
-                pirateFound: false,
-                catFound: false,
+                isGameStart: false,
+                isGameOver: false,
+                isScoresOverlayOpen: false,
+                isInstructionOverlayOpen: false,
+                isPirateFound: false,
+                isCatFound: false,
+                isChameleonFound:false
               })
             }
           >

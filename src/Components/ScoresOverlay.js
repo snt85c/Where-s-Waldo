@@ -23,7 +23,7 @@ export default function ScoresOverlay({ ui, setUi, finalScore }) {
       } catch (err) {}
     }
     getData();
-  }, [ui.gameOver]);
+  }, [ui.isGameOver]);
 
   function ShowCurrentScore() {
     return (
@@ -81,17 +81,10 @@ export default function ScoresOverlay({ ui, setUi, finalScore }) {
         >
           <div
             style={{
-              // position: "relative",
-              // zIndex: "5",
-              // top: "-20px",
-              // left: "50px",
               width: "20px",
               height: "20px",
-              // borderRadius: "50%",
-              // border: "1px solid red",
               color: "#ffc20d",
               fontWeight: "bolder",
-              // textAlign:"center", textJustify:"center"
             }}
           >
             {i + 1}
@@ -127,7 +120,7 @@ export default function ScoresOverlay({ ui, setUi, finalScore }) {
     <>
       <div
         style={{
-          display: ui.checkScores ? "flex" : "none",
+          display: ui.isScoresOverlayOpen ? "flex" : "none",
           flexDirection: "column",
           justifyContent: "space-between",
           position: "fixed",
@@ -146,10 +139,10 @@ export default function ScoresOverlay({ ui, setUi, finalScore }) {
         }}
       >
         <ShowScores />
-        {ui.gameOver && <ShowCurrentScore />}
+        {ui.isGameOver && <ShowCurrentScore />}
         <Button
           variant="light"
-          onClick={() => setUi({ ...ui, checkScores: false })}
+          onClick={() => setUi({ ...ui, isScoresOverlayOpen: false })}
         >
           Close Top Scores
         </Button>
