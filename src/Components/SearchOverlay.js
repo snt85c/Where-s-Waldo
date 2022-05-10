@@ -124,6 +124,33 @@ export default function SearchOverlay({
     );
   }
 
+  function find(name){
+    console.log(`item${name}`)
+    if (
+      coordinates.clickX >= [`item${name}`].xStart &&
+      coordinates.clickX <= [`item${name}`].xEnd &&
+      coordinates.clickY >= [`item${name}`].yStart &&
+      coordinates.clickY <= [`item${name}`].yEnd
+    ) {
+      setAlertOverlay({
+        isAlertShown: true,
+        name: `the ${name} is found`,
+        variant: "success",
+      });
+      setUi({ ...ui, [`is${name}Found`]: true });
+    } else {
+      setAlertOverlay({
+        isAlertShown: true,
+        name: `Incorrect: this is not the ${name}`,
+        variant: "warning",
+      });
+    }
+    setTimeout(
+      () => setAlertOverlay({ variant: "", show: false, name: "" }),
+      2000
+    );
+  }
+
   return (
     <>
       <Alert
