@@ -12,6 +12,7 @@ import GameoverOverlay from "./Components/GameoverOverlay";
 import { useUserAuth } from "./UserAuthContext";
 
 
+
 export default function Main() {
   const { user } = useUserAuth();
 
@@ -23,6 +24,7 @@ export default function Main() {
   });
   const [itemCat, setItemCat] = useState();
   const [itemPirate, setItemPirate] = useState();
+  const [itemChameleon, setItemChameleon] = useState()
   const [ui, setUi] = useState({
     gameStart: false,
     gameOver: false,
@@ -30,10 +32,10 @@ export default function Main() {
     instruction:false,
     pirateFound:false,
     catFound:false,
+    chameleonFound:false
   });
   const [finalScore, setFinalScore] = useState(0)
 
-useEffect(()=>{console.log(ui, finalScore)},[ui.gameOver])
   useEffect(()=>{
     if(ui.gameOver){
       addDoc(collection(db, "scores"), {
@@ -54,6 +56,9 @@ useEffect(()=>{console.log(ui, finalScore)},[ui.gameOver])
           }
           if (doc.id === "pirateKing") {
             setItemPirate(doc.data());
+          }
+          if(doc.id === "chameleon"){
+            setItemChameleon(doc.data())
           }
         });
       } catch (err) {}
@@ -82,9 +87,10 @@ useEffect(()=>{console.log(ui, finalScore)},[ui.gameOver])
         setUi={setUi}
         itemCat={itemCat}
         itemPirate={itemPirate}
+        itemChameleon={itemChameleon}
       />
       <InstructionsOverlay setUi={setUi} ui={ui} />
-      <ScoresOverlay setUi={setUi} ui={ui} />
+      <ScoresOverlay setUi={setUi} ui={ui} finalScore={finalScore}/>
       <GameoverOverlay setUi={setUi} ui={ui} finalScore={finalScore}/>
     </>
   );

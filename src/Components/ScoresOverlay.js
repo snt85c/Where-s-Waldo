@@ -2,8 +2,12 @@ import { Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../Firebase";
-export default function ScoresOverlay({ ui, setUi }) {
+import { useUserAuth } from "../UserAuthContext";
+
+
+export default function ScoresOverlay({ ui, setUi, finalScore }) {
   const [scores, setScores] = useState([]);
+  const { user } = useUserAuth();
 
   useEffect(() => {
     async function getData() {
@@ -13,42 +17,106 @@ export default function ScoresOverlay({ ui, setUi }) {
         querySnapshot.forEach((doc) => {
           data.push(doc.data());
         });
+        data.sort((a, b) => a.time - b.time);
+        data = data.filter((a) => a.time != 0);
         setScores(data);
       } catch (err) {}
     }
     getData();
-  }, []);
+  }, [ui.gameOver]);
+
+  function ShowCurrentScore() {
+    return (
+      <>
+      <div style={{ fontSize: "0.8rem", color: "gray" }}> your score</div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-evenly",
+            marginBottom: "5px",
+          }}
+        >
+          <img
+            style={{ borderRadius: "50%" }}
+            width="50px"
+            height="50px "
+            src={user.photoURL}
+          />
+          <div
+            style={{
+              minWidth: "120px",
+              fontSize: "1.2rem",
+              fontWeight: "bolder",
+              color: "#ffc20d",
+            }}
+          >
+            {user.displayName ? user.displayName : "Anonymous"}{" "}
+          </div>
+          <div
+            style={{
+              minWidth: "120px",
+              fontSize: "1.2rem",
+              fontWeight: "bolder",
+              color: "#ffc20d",
+            }}
+          >
+            {finalScore} seconds
+          </div>
+        </div>
+      </>
+    );
+  }
 
   function ShowScores() {
-    const result = scores.map((score) => (
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-evenly",
-          margin: "5px",
-        }}
-      >
-        <img
-          style={{ borderRadius: "50%" }}
-          width="50px"
-          height="50px "
-          src={score.image}
-        />
-        <div style={{ minWidth: "120px" }}>{score.name} </div>
-        <div style={{ minWidth: "120px" }}>{score.time} seconds</div>
-      </div>
+    const result = scores.map((score, i) => (
+      <>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-evenly",
+            margin: "5px",
+          }}
+        >
+          <div
+            style={{
+              // position: "relative",
+              // zIndex: "5",
+              // top: "-20px",
+              // left: "50px",
+              width: "20px",
+              height: "20px",
+              // borderRadius: "50%",
+              // border: "1px solid red",
+              color: "#ffc20d",
+              fontWeight: "bolder",
+              // textAlign:"center", textJustify:"center"
+            }}
+          >
+            {i + 1}
+          </div>
+          <img
+            style={{ borderRadius: "50%" }}
+            width="35px"
+            height="35px "
+            src={score.image}
+          />
+          <div style={{ minWidth: "120px" }}>{score.name} </div>
+          <div style={{ minWidth: "120px" }}>{score.time} seconds</div>
+        </div>
+      </>
     ));
 
     return (
       <>
         <div
           style={{
-            // overflow: "auto",
             overflow: "hidden",
-            maxHeight: "300px",
+            maxHeight: "220px",
           }}
         >
+          <div style={{ fontSize: "0.8rem", color: "gray" }}> best scores</div>
           {result}
         </div>
       </>
@@ -78,6 +146,7 @@ export default function ScoresOverlay({ ui, setUi }) {
         }}
       >
         <ShowScores />
+        {ui.gameOver && <ShowCurrentScore />}
         <Button
           variant="light"
           onClick={() => setUi({ ...ui, checkScores: false })}

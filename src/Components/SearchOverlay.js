@@ -7,6 +7,7 @@ export default function SearchOverlay({
   coordinates,
   itemCat,
   itemPirate,
+  itemChameleon,
 }) {
   //posX and posX is the calculated place where the overlay for the search sould be, depending on mouseclick and mousemove, this way they stay locked on the same screen area
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -31,12 +32,11 @@ export default function SearchOverlay({
   }, [coordinates.screenX, coordinates.screenY]);
 
   useEffect(() => {
-    if (ui.pirateFound && ui.catFound) {
-      console.log("cat & pirate found")
+    //when all the items are found, set gameover to true
+    if (ui.pirateFound && ui.catFound && ui.chameleonFound) {
       setUi({ ...ui, gameOver: true });
-
     }
-  }, [ui.pirateFound, ui.catFound]);
+  }, [ui.pirateFound, ui.catFound, ui.chameleonFound]);
 
   useEffect(() => {
     //on initial click, set coordinates as such, so that the overlay is centered on the click
@@ -89,6 +89,32 @@ export default function SearchOverlay({
       setAlertOverlay({
         show: true,
         name: "Incorrect: this is not the Pirate",
+        variant: "warning",
+      });
+    }
+    setTimeout(
+      () => setAlertOverlay({ variant: "", show: false, name: "" }),
+      2000
+    );
+  }
+
+  function FindChameleon() {
+    if (
+      coordinates.clickX >= itemChameleon.xStart &&
+      coordinates.clickX <= itemChameleon.xEnd &&
+      coordinates.clickY >= itemChameleon.yStart &&
+      coordinates.clickY <= itemChameleon.yEnd
+    ) {
+      setAlertOverlay({
+        show: true,
+        name: "the Chameleon is found",
+        variant: "success",
+      });
+      setUi({ ...ui, chameleonFound: true });
+    } else {
+      setAlertOverlay({
+        show: true,
+        name: "Incorrect: this is not the Chameleon",
         variant: "warning",
       });
     }
@@ -170,26 +196,36 @@ export default function SearchOverlay({
             color: "white",
             fontWeight: "bolder",
             textAlign: "center",
+            fontSize: "0.9rem",
           }}
           //rectangle overlay with options
         >
           <div
+            className="overlayOption"
             onClick={FindCat}
             style={{
-              cursor: "pointer",
               display: ui.catFound ? "none" : "flex",
             }}
           >
             Cat
           </div>
           <div
+            className="overlayOption"
             onClick={FindPirate}
             style={{
-              cursor: "pointer",
               display: ui.pirateFound ? "none" : "flex",
             }}
           >
             Pirate
+          </div>
+          <div
+            className="overlayOption"
+            onClick={FindChameleon}
+            style={{
+              display: ui.chameleonFound ? "none" : "flex",
+            }}
+          >
+            Chameleon
           </div>
         </div>
       </div>

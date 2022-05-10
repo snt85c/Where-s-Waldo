@@ -12,7 +12,7 @@ export default function GameoverOverlay({ ui, setUi, finalScore }) {
           flexDirection: "column",
           justifyContent: "space-between",
           position: "fixed",
-          zIndex:"3",
+          zIndex: "3",
           top: "50%",
           left: "50%",
           transform: ` translate(-50%, -50%)`,
@@ -24,22 +24,20 @@ export default function GameoverOverlay({ ui, setUi, finalScore }) {
           padding: "2%",
           color: "white",
           textAlign: "center",
-
         }}
       >
-        <div style={{overflow:"auto", maxHeight:"100px"}}>
-
-        <h1 style={{ fontWeight: "bolder", letterSpacing: "5px" }}>GAMEOVER</h1>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
+          <h1 style={{ fontWeight: "bolder", letterSpacing: "5px" }}>
+            GAMEOVER
+          </h1>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize:"1.5rem"
+            }}
           >
-          {user.displayName? user.displayName: "Anonymous" } {" "}
-          final score:{finalScore}
-        </div>
+            final score: {finalScore} seconds
           </div>
         <div
           style={{
@@ -49,24 +47,28 @@ export default function GameoverOverlay({ ui, setUi, finalScore }) {
           }}
         >
           <Button
-            style={{ margin:"5px" }}
-
+            style={{ margin: "5px" }}
             variant="light"
             onClick={() => setUi({ ...ui, checkScores: true })}
           >
             Check Top Scores
           </Button>
           <Button
-            style={{ display: ui.instruction ? "none" : "inline", margin:"5px" }}
+            style={{
+              display: ui.instruction ? "none" : "inline",
+              margin: "5px",
+            }}
             variant="warning"
-            onClick={()=>setUi({
+            onClick={() =>
+              setUi({
                 gameStart: false,
                 gameOver: false,
                 checkScores: false,
                 instruction: false,
                 pirateFound: false,
                 catFound: false,
-              })}
+              })
+            }
           >
             Replay
           </Button>

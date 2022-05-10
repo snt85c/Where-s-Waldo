@@ -46,5 +46,8 @@ body{
   transition: all 250ms linear 2s; 
 }
 
-
+.overlayOption:hover{
+  color:#ffc20d;
+  cursor:pointer;
+}
 
