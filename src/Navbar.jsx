@@ -69,7 +69,7 @@ export default function Nav({ ui, setUi, setFinalScore }) {
               onClick={() => setUi({ ...ui, isInstructionOverlayOpen: !ui.isInstructionOverlayOpen })}
               variant="warning"
               style={{
-                display: ui.isGameStart ? "flex" : "none",
+                display: ui.isGameStart && !ui.isGameOver ? "flex" : "none",
               }}
             >
               INSTRUCTIONS

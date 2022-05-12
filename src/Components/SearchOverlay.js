@@ -46,10 +46,10 @@ export default function SearchOverlay({
     });
   }, [coordinates.clickX, coordinates.clickY]);
 
-  function find(name){
-//when clicking the option, it will use a switch case to determine which set of data to load (as: itemCat, itemChameleon, itemPirate instead of having 3 separate functions with the data hardwired to them)    
-    let data = {}
-    switch(name){
+  function find(name) {
+    //when clicking the option, it will use a switch case to determine which set of data to load (as: itemCat, itemChameleon, itemPirate instead of having 3 separate functions with the data hardwired to them)
+    let data = {};
+    switch (name) {
       case "Cat":
         data = itemCat;
         break;
@@ -60,7 +60,7 @@ export default function SearchOverlay({
         data = itemPirate;
         break;
       default:
-        console.log("error: no data loaded")
+        console.log("error: no data loaded");
         break;
     }
     if (
@@ -85,6 +85,65 @@ export default function SearchOverlay({
     setTimeout(
       () => setAlertOverlay({ variant: "", show: false, name: "" }),
       2000
+    );
+  }
+
+  function ItemList() {
+    const names = ["Cat", "Pirate", "Chameleon"];
+    const result = names.map((name) => {
+      let variable = {};
+      switch (name) {
+        case "Cat":
+          variable = ui.isCatFound;
+          break;
+        case "Pirate":
+          variable = ui.isPirateFound;
+          break;
+        case "Chameleon":
+          variable = ui.isChameleonFound;
+          break;
+        default:
+          console.log("error in searchOverlay: function ItemList ")
+      }
+
+      return (
+        <div
+          className="overlayOption"
+          onClick={() => find(`${name}`)}
+          style={{
+            display: variable ? "none" : "flex",
+          }}
+        >
+          {name}
+        </div>
+      );
+    });
+    return (
+      <>
+        <div
+          style={{
+            display: ui.isGameOver ? "none" : "inline",
+            position: "fixed",
+            zIndex: ui.isGameStart ? "3" : "-2",
+            width: "100px",
+            height: "100px",
+            padding: "10px",
+            opacity: "80%",
+            borderRadius: "5px",
+            backgroundColor: "#212529",
+            border: "1px solid white",
+            top: position.y,
+            left: position.x + 100,
+            color: "white",
+            fontWeight: "bolder",
+            textAlign: "center",
+            fontSize: "0.9rem",
+          }}
+          //rectangle overlay with options
+        >
+          {result}
+        </div>
+      </>
     );
   }
 
@@ -143,55 +202,8 @@ export default function SearchOverlay({
           }}
           //circle white target
         ></div>
-        <div
-          style={{
-            display: ui.isGameOver ? "none" : "inline",
-            position: "fixed",
-            zIndex: ui.isGameStart ? "3" : "-2",
-            width: "100px",
-            height: "100px",
-            padding: "10px",
-            opacity: "80%",
-            borderRadius: "5px",
-            backgroundColor: "#212529",
-            border: "1px solid white",
-            top: position.y,
-            left: position.x + 100,
-            color: "white",
-            fontWeight: "bolder",
-            textAlign: "center",
-            fontSize: "0.9rem",
-          }}
-          //rectangle overlay with options
-        >
-          <div
-            className="overlayOption"
-            onClick={()=>find("Cat")}
-            style={{
-              display: ui.isCatFound ? "none" : "flex",
-            }}
-          >
-            Cat
-          </div>
-          <div
-            className="overlayOption"
-            onClick={()=>find("Pirate")}
-            style={{
-              display: ui.isPirateFound ? "none" : "flex",
-            }}
-          >
-            Pirate
-          </div>
-          <div
-            className="overlayOption"
-            onClick={()=>find("Chameleon")}
-            style={{
-              display: ui.isChameleonFound ? "none" : "flex",
-            }}
-          >
-            Chameleon
-          </div>
-        </div>
+
+        <ItemList />
       </div>
     </>
   );
