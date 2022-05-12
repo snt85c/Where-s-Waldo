@@ -29,7 +29,7 @@ export default function SearchOverlay({
         (coordinates.clickY - coordinates.screenY) * 2 -
         50,
     });
-  }, [coordinates.screenX, coordinates.screenY]);
+  }, [coordinates.screenX, coordinates.screenY, coordinates.clickY, ]);
 
   useEffect(() => {
     //when all the items are found, set gameover to true
@@ -121,23 +121,12 @@ export default function SearchOverlay({
     return (
       <>
         <div
+        className="searchRectangleOverlay"
           style={{
             display: ui.isGameOver ? "none" : "inline",
-            position: "fixed",
             zIndex: ui.isGameStart ? "3" : "-2",
-            width: "100px",
-            height: "100px",
-            padding: "10px",
-            opacity: "80%",
-            borderRadius: "5px",
-            backgroundColor: "#212529",
-            border: "1px solid white",
             top: position.y,
             left: position.x + 100,
-            color: "white",
-            fontWeight: "bolder",
-            textAlign: "center",
-            fontSize: "0.9rem",
           }}
           //rectangle overlay with options
         >
@@ -151,7 +140,7 @@ export default function SearchOverlay({
     <>
       <Alert
         //alert overlay to notify the user if the element selected has been found or not
-        className={` ${!alertOverlay.isAlertShown ? "fadeOut" : ""}`}
+        className= {` ${!alertOverlay.isAlertShown ? "fadeOut " : ""}`}
         variant={alertOverlay.variant}
         style={{
           position: "absolute",
@@ -175,34 +164,25 @@ export default function SearchOverlay({
         }}
       >
         <div
+        className="redCircleTarget"
           style={{
             display: ui.isGameOver ? "none" : "inline",
-            position: "fixed",
             zIndex: ui.isGameStart ? "3" : "-2",
-            width: "100px",
-            height: "100px",
-            borderRadius: "50%",
-            border: "3px solid red",
             top: position.y,
             left: position.x,
           }}
           //circle red target
         ></div>
         <div
+        className="whiteCircleTarget"
           style={{
             display: ui.isGameOver ? "none" : "inline",
-            position: "fixed",
             zIndex: ui.isGameStart ? "3" : "-2",
-            width: "95px",
-            height: "95px",
-            borderRadius: "50%",
-            border: "3px solid white",
             top: position.y + 3,
             left: position.x + 3,
           }}
           //circle white target
         ></div>
-
         <ItemList />
       </div>
     </>

@@ -1,4 +1,4 @@
-import cityBackground from "../img/s020gwdtsen31.png";
+import cityBackground from "../img/cityBackground.png";
 
 export default function CityBackground({
   setCoordinates,

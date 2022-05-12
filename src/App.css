@@ -51,3 +51,36 @@ body{
   cursor:pointer;
 }
 
+.searchRectangleOverlay{
+  position:fixed;
+  width:100px;
+  height:100px;
+  padding:10px;
+  opacity:80%;
+  border-radius: 5px;
+  background-color:#212529;
+  border: 1px solid white;
+  color:white;
+  font-weight: bolder;
+  text-align: center;
+  font-size:0.9rem;
+}
+
+.redCircleTarget{
+  position:fixed;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid red;
+}
+
+.whiteCircleTarget{
+  position:fixed;
+  width:95px;
+  height:95px;
+  border-radius:50%;
+  border: 3px solid white
+}
+
+
+

@@ -1,4 +1,4 @@
-import skyBackground from "../img/11005249.jpg";
+import skyBackground from "../img/skyBackground.jpg";
 
 export default function SkyBackground({ X, Y}) {
     return (
