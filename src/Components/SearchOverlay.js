@@ -46,91 +46,28 @@ export default function SearchOverlay({
     });
   }, [coordinates.clickX, coordinates.clickY]);
 
-  function FindCat() {
-    if (
-      coordinates.clickX >= itemCat.xStart &&
-      coordinates.clickX <= itemCat.xEnd &&
-      coordinates.clickY >= itemCat.yStart &&
-      coordinates.clickY <= itemCat.yEnd
-    ) {
-      setAlertOverlay({
-        isAlertShown: true,
-        name: "the Cat is found",
-        variant: "success",
-      });
-      setUi({ ...ui, isCatFound: true });
-    } else {
-      setAlertOverlay({
-        isAlertShown: true,
-        name: "incorrect: this is not the Cat",
-        variant: "warning",
-      });
-    }
-    setTimeout(
-      () => setAlertOverlay({ variant: "", isAlertShown: false, name: "" }),
-      2000
-    );
-  }
-
-  function FindPirate() {
-    if (
-      coordinates.clickX >= itemPirate.xStart &&
-      coordinates.clickX <= itemPirate.xEnd &&
-      coordinates.clickY >= itemPirate.yStart &&
-      coordinates.clickY <= itemPirate.yEnd
-    ) {
-      setAlertOverlay({
-        isAlertShown: true,
-        name: "the Pirate is found",
-        variant: "success",
-      });
-      setUi({ ...ui, isPirateFound: true });
-    } else {
-      setAlertOverlay({
-        isAlertShown: true,
-        name: "Incorrect: this is not the Pirate",
-        variant: "warning",
-      });
-    }
-    setTimeout(
-      () => setAlertOverlay({ variant: "", isAlertShown: false, name: "" }),
-      2000
-    );
-  }
-
-  function FindChameleon() {
-    if (
-      coordinates.clickX >= itemChameleon.xStart &&
-      coordinates.clickX <= itemChameleon.xEnd &&
-      coordinates.clickY >= itemChameleon.yStart &&
-      coordinates.clickY <= itemChameleon.yEnd
-    ) {
-      setAlertOverlay({
-        isAlertShown: true,
-        name: "the Chameleon is found",
-        variant: "success",
-      });
-      setUi({ ...ui, isChameleonFound: true });
-    } else {
-      setAlertOverlay({
-        isAlertShown: true,
-        name: "Incorrect: this is not the Chameleon",
-        variant: "warning",
-      });
-    }
-    setTimeout(
-      () => setAlertOverlay({ variant: "", show: false, name: "" }),
-      2000
-    );
-  }
-
   function find(name){
-    console.log(`item${name}`)
+//when clicking the option, it will use a switch case to determine which set of data to load (as: itemCat, itemChameleon, itemPirate instead of having 3 separate functions with the data hardwired to them)    
+    let data = {}
+    switch(name){
+      case "Cat":
+        data = itemCat;
+        break;
+      case "Chameleon":
+        data = itemChameleon;
+        break;
+      case "Pirate":
+        data = itemPirate;
+        break;
+      default:
+        console.log("error: no data loaded")
+        break;
+    }
     if (
-      coordinates.clickX >= [`item${name}`].xStart &&
-      coordinates.clickX <= [`item${name}`].xEnd &&
-      coordinates.clickY >= [`item${name}`].yStart &&
-      coordinates.clickY <= [`item${name}`].yEnd
+      coordinates.clickX >= data.xStart &&
+      coordinates.clickX <= data.xEnd &&
+      coordinates.clickY >= data.yStart &&
+      coordinates.clickY <= data.yEnd
     ) {
       setAlertOverlay({
         isAlertShown: true,
@@ -229,7 +166,7 @@ export default function SearchOverlay({
         >
           <div
             className="overlayOption"
-            onClick={FindCat}
+            onClick={()=>find("Cat")}
             style={{
               display: ui.isCatFound ? "none" : "flex",
             }}
@@ -238,7 +175,7 @@ export default function SearchOverlay({
           </div>
           <div
             className="overlayOption"
-            onClick={FindPirate}
+            onClick={()=>find("Pirate")}
             style={{
               display: ui.isPirateFound ? "none" : "flex",
             }}
@@ -247,7 +184,7 @@ export default function SearchOverlay({
           </div>
           <div
             className="overlayOption"
-            onClick={FindChameleon}
+            onClick={()=>find("Chameleon")}
             style={{
               display: ui.isChameleonFound ? "none" : "flex",
             }}
