@@ -18,7 +18,7 @@ export default function ScoresOverlay({ ui, setUi, finalScore }) {
           data.push(doc.data());
         });
         data.sort((a, b) => a.time - b.time);
-        data = data.filter((a) => a.time != 0);
+        data = data.filter((a) => a.time !== 0);
         setScores(data);
       } catch (err) {}
     }
@@ -42,6 +42,7 @@ export default function ScoresOverlay({ ui, setUi, finalScore }) {
             width="50px"
             height="50px "
             src={user.photoURL}
+            alt="#"
           />
           <div
             style={{
@@ -94,6 +95,7 @@ export default function ScoresOverlay({ ui, setUi, finalScore }) {
             width="35px"
             height="35px "
             src={score.image}
+            alt="#"
           />
           <div style={{ minWidth: "120px" }}>{score.name} </div>
           <div style={{ minWidth: "120px" }}>{score.time} seconds</div>

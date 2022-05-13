@@ -1,8 +1,6 @@
 import { Button } from "react-bootstrap";
-import { useUserAuth } from "../UserAuthContext";
 
 export default function GameoverOverlay({ ui, setUi, finalScore }) {
-  const { user } = useUserAuth();
 
   return (
     <>
@@ -37,7 +35,7 @@ export default function GameoverOverlay({ ui, setUi, finalScore }) {
               fontSize:"1.5rem"
             }}
           >
-            final score: {finalScore} seconds
+            final score: {" "}<span style={{color:"#ffc107"}}>{finalScore}</span>{" "} seconds
           </div>
         <div
           style={{
