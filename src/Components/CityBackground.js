@@ -14,13 +14,14 @@ export default function CityBackground({ setCoordinates, coordinates, ui }) {
           //the screen wont move if the game is yet to start, won, or the instruction overlay is open, pausing the game
           setCoordinates({
             ...coordinates,
-            screenX: e.touches[0].pageX - (e.touches[0].pageX -touchEnd.xEnd), 
-            screenY: e.touches[0].pageY - (e.touches[0].pageY - touchEnd.yEnd),
+            screenX: (e.touches[0].pageX + touchEnd.xEnd ) * 2, 
+            screenY: e.touches[0].pageY +  touchEnd.yEnd,
           });
         }
       }}
       onTouchEnd={(e) => {
         setTouchEnd({xEnd:e.changedTouches[0].pageX, yEnd:e.changedTouches[0].pageY})
+        console.log(touchEnd)
       }}
       onMouseMove={(e) => {
         if (ui.isGameStart && !ui.isGameOver && !ui.isInstructionOverlayOpen) {
