@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/Where-s-Waldo/static/css/main.1340efb1.css",
-    "main.js": "/Where-s-Waldo/static/js/main.5f7fc0b5.js",
+    "main.js": "/Where-s-Waldo/static/js/main.fa02a699.js",
     "static/media/cityBackground.png": "/Where-s-Waldo/static/media/cityBackground.8ba24665bc127696e98b.png",
     "static/media/houseBackground.png": "/Where-s-Waldo/static/media/houseBackground.6ac839ef1f978f0c7495.png",
     "static/media/skyBackground.jpg": "/Where-s-Waldo/static/media/skyBackground.b9d31d26a810a3861c97.jpg",
     "static/media/AliandoRocky.ttf": "/Where-s-Waldo/static/media/AliandoRocky.6ff3f9a0b8224559f55a.ttf",
     "index.html": "/Where-s-Waldo/index.html",
     "main.1340efb1.css.map": "/Where-s-Waldo/static/css/main.1340efb1.css.map",
-    "main.5f7fc0b5.js.map": "/Where-s-Waldo/static/js/main.5f7fc0b5.js.map"
+    "main.fa02a699.js.map": "/Where-s-Waldo/static/js/main.fa02a699.js.map"
   },
   "entrypoints": [
     "static/css/main.1340efb1.css",
-    "static/js/main.5f7fc0b5.js"
+    "static/js/main.fa02a699.js"
   ]
 }
