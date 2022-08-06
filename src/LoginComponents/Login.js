@@ -64,9 +64,13 @@ export default function Login() {
         <h1
           className="title-left"
           style={{
+            margin:"5px",
+            marginLeft:"30px",
+            marginRight:"30px",
+            padding:"5px",
             color: "white",
             fontWeight: "bolder",
-            fontSize: "5rem",
+            fontSize: "3rem",
             fontFamily: "AliandoRocky",
             textJustify: "center",
             textAlign: "center",
