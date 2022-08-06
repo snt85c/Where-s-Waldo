@@ -1,32 +1,50 @@
 import cityBackground from "../img/cityBackground.png";
 import { useState } from "react";
+import { useSwipeable } from "react-swipeable";
 
 export default function CityBackground({ setCoordinates, coordinates, ui }) {
-  const [touchEnd, setTouchEnd] = useState({ xEnd: 0, yEnd: 0 });
-  console.log(window.innerWidth);
+  const [delta, setDelta] = useState({ X: 0, Y: 0 });
+  const handlers = useSwipeable({
+    onSwiped: (eventData) => console.log(eventData),
+    onSwiping: (eventData) => {
+      if (ui.isGameStart && !ui.isGameOver && !ui.isInstructionOverlayOpen) {
+      setCoordinates({
+        ...coordinates,
+        screenX:
+          eventData.dir === "Left"
+            ? eventData.event.changedTouches[0].pageX - eventData.absX
+            : eventData.dir === "Right"
+            ? eventData.event.changedTouches[0].pageX + eventData.absX
+            : coordinates.screenX,
+        screenY:
+          eventData.dir === "Up"
+            ? eventData.event.changedTouches[0].pageY - eventData.absY
+            : eventData.dir === "Down"
+            ? eventData.event.changedTouches[0].pageY + eventData.absY
+            : coordinates.screenY,
+      });}
+    },
+  });
+
   return (
     <img
+      {...handlers}
       scr={cityBackground}
-      onTouchStart={() => {
+      onTouchStart={(e) => {
         // console.log(coordinates.screenX, coordinates.screenY);
       }}
       onTouchMove={(e) => {
         if (ui.isGameStart && !ui.isGameOver && !ui.isInstructionOverlayOpen) {
           //the screen wont move if the game is yet to start, won, or the instruction overlay is open, pausing the game
-          // console.log(e.touches[0].pageX, e.touches[0].pageY)
-          setCoordinates({
-            ...coordinates,
-            screenX: touchEnd.xEnd + e.touches[0].pageX,
-            screenY: touchEnd.yEnd + e.touches[0].pageY,
-          });
+          // setCoordinates({
+          //   ...coordinates,
+          //   screenX: e.touches[0].pageX - delta.X,
+          //   screenY: e.touches[0].pageY - delta.Y,
+          // });
         }
       }}
       onTouchEnd={(e) => {
-        setTouchEnd({
-          xEnd: e.changedTouches[0].pageX,
-          yEnd: e.changedTouches[0].pageY,
-        });
-        // console.log(touchEnd);
+        // setTouchEndStart({...touchEndStart, xEnd:e.changedTouches[0].pageX, yEnd:e.changedTouches[0].pageY})
       }}
       onMouseMove={(e) => {
         if (ui.isGameStart && !ui.isGameOver && !ui.isInstructionOverlayOpen) {
@@ -49,7 +67,7 @@ export default function CityBackground({ setCoordinates, coordinates, ui }) {
         backgroundRepeat: "no-repeat",
         backgroundPosition:
           window.innerWidth < 600
-            ? `${-coordinates.screenX * 3}px ${-coordinates.screenY * 2}px`
+            ? `${-coordinates.screenX * 2}px ${-coordinates.screenY * 2}px`
             : `${-coordinates.screenX * 1.2}px ${-coordinates.screenY * 2}px`,
       }}
       alt="#"

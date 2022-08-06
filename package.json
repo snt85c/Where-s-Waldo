@@ -17,6 +17,7 @@
     "react-identicons": "^1.2.5",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.0",
+    "react-swipeable": "^7.0.0",
     "react-timer-hook": "^3.0.5",
     "web-vitals": "^2.1.4"
   },
