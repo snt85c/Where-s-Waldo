@@ -8,9 +8,20 @@ export default function CityBackground({
   return (
     <img
       scr={cityBackground}
+      onTouchMove={(e) => {
+        console.log(e)
+        if (ui.isGameStart && !ui.isGameOver && !ui.isInstructionOverlayOpen) {
+          //the screen wont move if the game is yet to start, won, or the instruction overlay is open, pausing the game
+          setCoordinates({
+            ...coordinates,
+            screenX: e.touches[0].pageX,
+            screenY: e.touches[0].pageY,
+          });
+        }
+      }}
       onMouseMove={(e) => {
         if (ui.isGameStart && !ui.isGameOver && !ui.isInstructionOverlayOpen) {
-          //the screen wont move is the game is yet to start, won, or the instruction overlay is open, pausing the game
+          //the screen wont move if the game is yet to start, won, or the instruction overlay is open, pausing the game
           setCoordinates({
             ...coordinates,
             screenX: e.pageX,

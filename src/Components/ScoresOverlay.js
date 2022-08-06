@@ -4,7 +4,6 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../Firebase";
 import { useUserAuth } from "../UserAuthContext";
 
-
 export default function ScoresOverlay({ ui, setUi, finalScore }) {
   const [scores, setScores] = useState([]);
   const { user } = useUserAuth();
@@ -28,7 +27,7 @@ export default function ScoresOverlay({ ui, setUi, finalScore }) {
   function ShowCurrentScore() {
     return (
       <>
-      <div style={{ fontSize: "0.8rem", color: "gray" }}> your score</div>
+        <div style={{ fontSize: "0.8rem", color: "gray" }}> your score</div>
         <div
           style={{
             display: "flex",
@@ -73,6 +72,7 @@ export default function ScoresOverlay({ ui, setUi, finalScore }) {
     const result = scores.map((score, i) => (
       <>
         <div
+          key={i}
           style={{
             display: "flex",
             alignItems: "center",
