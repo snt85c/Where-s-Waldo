@@ -5,7 +5,10 @@ export default function CityBackground({ setCoordinates, coordinates, ui }) {
     <img
       scr={cityBackground}
       onTouchStart={(e) => {
-        console.log(coordinates.clickX, coordinates.clickY)
+        console.log(coordinates.screenX, coordinates.screenY , "Screen")
+        console.log(coordinates.clickX, coordinates.clickY, "click")
+        console.log(coordinates.clickX +  coordinates.screenX , coordinates.clickY + coordinates.screenY , "TOTAL")
+
       }}
       onTouchMove={(e) => {
         if (ui.isGameStart && !ui.isGameOver && !ui.isInstructionOverlayOpen) {
@@ -13,25 +16,24 @@ export default function CityBackground({ setCoordinates, coordinates, ui }) {
           setCoordinates({
             ...coordinates,
             screenX: e.touches[0].clientX + coordinates.clickX,
-            screenY: e.touches[0].clientY + coordinates.clickY,
+            screenY: e.touches[0].screenY + coordinates.clickY,
           });
         }
       }}
-      onTouchEnd={(e)=>{
+      onTouchEnd={(e) => {
         setCoordinates({
           ...coordinates,
           clickX: e.changedTouches[0].clientX,
-          clickY: e.changedTouches[0].clientY
+          clickY: e.changedTouches[0].clientY,
         });
       }}
-  
       onMouseMove={(e) => {
         if (ui.isGameStart && !ui.isGameOver && !ui.isInstructionOverlayOpen) {
           //the screen wont move if the game is yet to start, won, or the instruction overlay is open, pausing the game
           setCoordinates({
             ...coordinates,
-            screenX: e.clientX ,
-            screenY: e.clientY ,
+            screenX: e.clientX,
+            screenY: e.clientY,
           });
         }
       }}
@@ -44,7 +46,7 @@ export default function CityBackground({ setCoordinates, coordinates, ui }) {
         minHeight: "100vh",
         background: `url(${cityBackground})`,
         backgroundRepeat: "no-repeat",
-        backgroundPosition: `${-coordinates.screenX * 1.2}px ${-coordinates.screenY * 2}px`,
+        backgroundPosition:`${-coordinates.screenX * 1.2}px ${-coordinates.screenY * 2}px`,
       }}
       alt="#"
     />
