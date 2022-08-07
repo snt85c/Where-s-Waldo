@@ -69,12 +69,12 @@ export default function Main() {
   return (
     <>
       <Navbar ui={ui} setUi={setUi} setFinalScore={setFinalScore} />
-       {/* <TestingBar
+       <TestingBar
         clickX={coordinates.clickX}
         clickY={coordinates.clickY}
         screenX={coordinates.screenX}
         screenY={coordinates.screenY}
-      />  */}
+      /> 
       <SkyBackground X={coordinates.screenX / 20} />
       <CityBackground
         setCoordinates={setCoordinates}
